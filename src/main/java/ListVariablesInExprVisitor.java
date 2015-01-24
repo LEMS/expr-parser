@@ -7,6 +7,10 @@ public class ListVariablesInExprVisitor extends LEMSExpressionBaseVisitor<String
 	public List<String> getVariablesInExpr() {
 		return variablesInExpr;
 	}
+	
+	//Technically, the "right" way of achieving this functionality would
+	// be using a listener instead of a visitor (as listeners recursively
+	// walk the whole tree by default). 
 
 	/** expr */
 	@Override

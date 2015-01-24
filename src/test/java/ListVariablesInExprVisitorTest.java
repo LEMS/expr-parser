@@ -14,14 +14,15 @@ import org.junit.Test;
 public class ListVariablesInExprVisitorTest {
 
 	@Test
-  public void testID() {
-	  List<String> vars = getResult("ab+(c/exp(d + ef/sin(g)))");
-	  Set<String> result = new HashSet<>(vars);
-	  //java is hilarious
-	  Set<String> expected = new HashSet<String>(new ArrayList<String>(Arrays.asList("ab", "c", "d", "ef", "g")));
-	  expected.removeAll(result);
-	  assertTrue(expected.isEmpty());
-  }
+	public void testFindVariables() {
+		List<String> vars = getResult("ab+(c/exp(d^2 + ef/sin(g)))");
+		Set<String> result = new HashSet<>(vars);
+		// java is hilarious
+		Set<String> expected = new HashSet<String>(new ArrayList<String>(
+				Arrays.asList("ab", "c", "d", "ef", "g")));
+		expected.removeAll(result);
+		assertTrue(expected.isEmpty());
+	}
 
 	private List<String> getResult(String expression) {
 		ANTLRInputStream input = new ANTLRInputStream(expression);
