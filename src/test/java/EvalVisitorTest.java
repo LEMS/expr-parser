@@ -1,7 +1,5 @@
 import static org.junit.Assert.assertEquals;
 
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Test;
 
@@ -61,12 +59,7 @@ public class EvalVisitorTest {
 
 
   private Double getResult(String expression) {
-    ANTLRInputStream input = new ANTLRInputStream(expression);
-    LEMSExpressionLexer lexer = new LEMSExpressionLexer(input);
-    CommonTokenStream tokens = new CommonTokenStream(lexer);
-    LEMSExpressionParser parser = new LEMSExpressionParser(tokens);
-    ParseTree tree = parser.base();
-
+	ParseTree tree = new AntlrExpressionParser().generateTree(expression);
     EvalVisitor eval = new EvalVisitor();
     return eval.visit(tree);
   }

@@ -6,8 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Test;
 
@@ -25,11 +23,7 @@ public class ListVariablesInExprVisitorTest {
 	}
 
 	private List<String> getResult(String expression) {
-		ANTLRInputStream input = new ANTLRInputStream(expression);
-		LEMSExpressionLexer lexer = new LEMSExpressionLexer(input);
-		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		LEMSExpressionParser parser = new LEMSExpressionParser(tokens);
-		ParseTree tree = parser.base();
+		ParseTree tree = new AntlrExpressionParser().generateTree(expression);
 
 		ListVariablesInExprVisitor listVars = new ListVariablesInExprVisitor();
 		listVars.visit(tree);
