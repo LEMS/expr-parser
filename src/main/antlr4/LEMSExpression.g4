@@ -17,4 +17,16 @@ expr:   '(' expr ')'                # parens
 BuiltinFuncs:   'sin'   
               | 'cos'  
               | 'tan' 
+              | 'sqrt'
+              | 'sinh'
+              | 'cosh'
+              | 'tanh'
+              | 'exp'
+              | 'log' 
+              | 'ln' 
+              | 'random'
+              | 'ceil'
+              | 'floor'
+              | 'abs'
               ;
+
