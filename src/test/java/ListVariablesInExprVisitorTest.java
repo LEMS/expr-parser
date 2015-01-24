@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Test;
 
 public class ListVariablesInExprVisitorTest {
@@ -23,10 +22,9 @@ public class ListVariablesInExprVisitorTest {
 	}
 
 	private List<String> getResult(String expression) {
-		ParseTree tree = new AntlrExpressionParser().generateTree(expression);
-
+		AntlrExpressionParser p = new AntlrExpressionParser(expression);
 		ListVariablesInExprVisitor listVars = new ListVariablesInExprVisitor();
-		listVars.visit(tree);
+		p.parseAndVisitWith(listVars);
 		return listVars.getVariablesInExpr();
 	}
 }
