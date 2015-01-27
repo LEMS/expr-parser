@@ -34,9 +34,9 @@ public class DimensionalAnalysisVisitorTest {
 		assertFalse(verifyCompatibility(expected, context, expr));
 
 	}
+
 	@Test
 	public void testMulDiv() {
-		// String expr = "x*(sin(x)^2 + cos(x)^2 + x)";
 		Unit<?> expected = METRE.multiply(MILLI(METRE));
 		Map<String, Unit<?>> context = new HashMap<String, Unit<?>>();
 		context.put("x", CENTI(METRE));
@@ -84,13 +84,12 @@ public class DimensionalAnalysisVisitorTest {
 		expr = "x^x";
 		assertFalse(verifyCompatibility(expected, context, expr));
 
-		//TODO: think about this case...
+		// TODO: think about this case...
 		// It seems we'll need a full-fledged dimensional expression evaluator
 		expr = "x^(1+1)";
 		assertFalse(verifyCompatibility(ONE, context, expr));
 
 	}
-
 
 	private boolean verifyCompatibility(Unit<?> expected,
 			Map<String, Unit<?>> context, String expr) {
