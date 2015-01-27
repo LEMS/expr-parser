@@ -22,7 +22,7 @@ public class ListVariablesInExprVisitor extends LEMSExpressionBaseVisitor<String
 
 	/** ID */
 	@Override
-	public String visitId(LEMSExpressionParser.IdContext ctx) {
+	public String visitIdentifier(LEMSExpressionParser.IdentifierContext ctx) {
 		String id = ctx.ID().getText();
 		variablesInExpr.add(id);
 		return id; 

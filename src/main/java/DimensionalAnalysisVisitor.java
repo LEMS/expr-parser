@@ -25,7 +25,7 @@ public class DimensionalAnalysisVisitor extends
 
 	/** ID */
 	@Override
-	public Unit<?> visitId(LEMSExpressionParser.IdContext ctx) {
+	public Unit<?> visitIdentifier(LEMSExpressionParser.IdentifierContext ctx) {
 		String id = ctx.ID().getText();
 		// TODO: check for undefined ids
 		return context.get(id);
@@ -59,7 +59,7 @@ public class DimensionalAnalysisVisitor extends
 
 	/** FLOAT */
 	@Override
-	public Unit<?> visitFloat(LEMSExpressionParser.FloatContext ctx) {
+	public Unit<?> visitFloatLiteral(LEMSExpressionParser.FloatLiteralContext ctx) {
 		return ONE;
 	}
 
@@ -94,13 +94,13 @@ public class DimensionalAnalysisVisitor extends
 
 	/** '(' expr ')' */
 	@Override
-	public Unit<?> visitParens(LEMSExpressionParser.ParensContext ctx) {
+	public Unit<?> visitParenthesized(LEMSExpressionParser.ParenthesizedContext ctx) {
 		return visit(ctx.expr()); // return child expr's value
 	}
 
 	/** BuiltinFuncs '(' expr ')' */
 	@Override
-	public Unit<?> visitFuncCall(LEMSExpressionParser.FuncCallContext ctx) {
+	public Unit<?> visitFunctionCall(LEMSExpressionParser.FunctionCallContext ctx) {
 		Unit<?> ret = null;
 		switch (ctx.BuiltinFuncs().getText()) {
 		case "random":

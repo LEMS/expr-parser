@@ -24,7 +24,7 @@ public class EvalVisitor extends LEMSExpressionBaseVisitor<Double> {
 
 	/** FLOAT */
 	@Override
-	public Double visitFloat(LEMSExpressionParser.FloatContext ctx) {
+	public Double visitFloatLiteral(LEMSExpressionParser.FloatLiteralContext ctx) {
 		return Double.valueOf(ctx.FLOAT().getText());
 	}
 
@@ -50,13 +50,13 @@ public class EvalVisitor extends LEMSExpressionBaseVisitor<Double> {
 
 	/** '(' expr ')' */
 	@Override
-	public Double visitParens(LEMSExpressionParser.ParensContext ctx) {
+	public Double visitParenthesized(LEMSExpressionParser.ParenthesizedContext ctx) {
 		return visit(ctx.expr()); // return child expr's value
 	}
 
 	/** BuiltinFuncs '(' expr ')' */
 	@Override
-	public Double visitFuncCall(LEMSExpressionParser.FuncCallContext ctx) {
+	public Double visitFunctionCall(LEMSExpressionParser.FunctionCallContext ctx) {
 		Double ret = null;
 		switch (ctx.BuiltinFuncs().getText()) {
 		case "sin":

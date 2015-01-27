@@ -4,14 +4,14 @@ import CommonLexerRules;
 base:   expr  
 		;
 
-expr:   '(' expr ')'                # parens
-    |   BuiltinFuncs '(' expr? ')'  # funcCall
-    |   '-' expr                    # Negate
+expr:   '(' expr ')'                # Parenthesized
+    |   BuiltinFuncs '(' expr? ')'  # FunctionCall
     |   expr op=POW expr            # Pow
+    |   '-' expr                    # Negate
     |   expr op=(MUL | DIV) expr    # MulDiv
     |   expr op=(ADD | SUB) expr    # AddSub
-    |   FLOAT                       # float
-    |   ID                          # id
+    |   FLOAT                       # FloatLiteral
+    |   ID                          # Identifier
     ;
 
 BuiltinFuncs:   'sin'   

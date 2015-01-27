@@ -18,7 +18,7 @@ public class ContextEvalVisitor extends LEMSExpressionBaseVisitor<Double> {
 
 	/** ID */
 	@Override
-	public Double visitId(LEMSExpressionParser.IdContext ctx) {
+	public Double visitIdentifier(LEMSExpressionParser.IdentifierContext ctx) {
 		String id = ctx.ID().getText();
 		//TODO: check for undefined ids
 		return context.get(id); 
@@ -40,7 +40,7 @@ public class ContextEvalVisitor extends LEMSExpressionBaseVisitor<Double> {
 
 	/** FLOAT */
 	@Override
-	public Double visitFloat(LEMSExpressionParser.FloatContext ctx) {
+	public Double visitFloatLiteral(LEMSExpressionParser.FloatLiteralContext ctx) {
 		return Double.valueOf(ctx.FLOAT().getText());
 	}
 
@@ -66,13 +66,13 @@ public class ContextEvalVisitor extends LEMSExpressionBaseVisitor<Double> {
 
 	/** '(' expr ')' */
 	@Override
-	public Double visitParens(LEMSExpressionParser.ParensContext ctx) {
+	public Double visitParenthesized(LEMSExpressionParser.ParenthesizedContext ctx) {
 		return visit(ctx.expr()); // return child expr's value
 	}
 
 	/** BuiltinFuncs '(' expr ')' */
 	@Override
-	public Double visitFuncCall(LEMSExpressionParser.FuncCallContext ctx) {
+	public Double visitFunctionCall(LEMSExpressionParser.FunctionCallContext ctx) {
 		Double ret = null;
 		switch (ctx.BuiltinFuncs().getText()) {
 		case "sin":
