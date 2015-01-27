@@ -59,7 +59,7 @@ public class ContextEvalVisitorTest {
 	private Double evaluateInContext(String expression, Map<String, Double> context) {
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
 		ContextEvalVisitor eval = new ContextEvalVisitor(context);
-		return p.parseAndVisitWith(eval);
+		return p.parseAndVisitWith(eval).asDouble();
 	}
 
 	private List<String> findDeps(String expression) {

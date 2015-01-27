@@ -11,10 +11,10 @@ public class ContextEvalVisitor extends EvalVisitor {
 
 	/** ID */
 	@Override
-	public Double visitIdentifier(LEMSExpressionParser.IdentifierContext ctx) {
+	public Value visitIdentifier(LEMSExpressionParser.IdentifierContext ctx) {
 		String id = ctx.ID().getText();
 		//TODO: check for undefined ids
-		return context.get(id); 
+		return new Value(context.get(id)); 
 	}
 
 }

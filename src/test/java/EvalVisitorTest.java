@@ -60,6 +60,6 @@ public class EvalVisitorTest {
 	private Double getResult(String expression) {
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
 		EvalVisitor eval = new EvalVisitor();
-		return p.parseAndVisitWith(eval);
+		return p.parseAndVisitWith(eval).asDouble();
 	}
 }

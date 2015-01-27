@@ -1,103 +1,105 @@
 
-public class EvalVisitor extends LEMSExpressionBaseVisitor<Double> {
+public class EvalVisitor extends LEMSExpressionBaseVisitor<Value> {
 
 	/** expr */
 	@Override
-	public Double visitBase(LEMSExpressionParser.BaseContext ctx) {
-		Double result = visit(ctx.expr());
+	public Value visitBase(LEMSExpressionParser.BaseContext ctx) {
+		Value result = visit(ctx.expr());
 		System.out.println(ctx.expr().getText() + " = " + result);
 		return result; 
 	}
 
 	/** '-' expr */
 	@Override
-	public Double visitNegate(LEMSExpressionParser.NegateContext ctx) {
-		return -visit(ctx.expr());
+	public Value visitNegate(LEMSExpressionParser.NegateContext ctx) {
+		Value val = visit(ctx.expr());
+		return new Value(-val.asDouble());
 	}
 
 	/** expr op=POW expr */
 	@Override
-	public Double visitPow(LEMSExpressionParser.PowContext ctx) {
-		Double left = visit(ctx.expr(0)); // get value of left subexpression
-		Double right = visit(ctx.expr(1)); // get value of right subexpression
-		return new Double(Math.pow(left, right));
+	public Value visitPow(LEMSExpressionParser.PowContext ctx) {
+		Value left = visit(ctx.expr(0)); // get value of left subexpression
+		Value right = visit(ctx.expr(1)); // get value of right subexpression
+		return new Value(Math.pow(left.asDouble(), right.asDouble()));
 	}
 
 	/** FLOAT */
 	@Override
-	public Double visitFloatLiteral(LEMSExpressionParser.FloatLiteralContext ctx) {
-		return Double.valueOf(ctx.FLOAT().getText());
+	public Value visitFloatLiteral(LEMSExpressionParser.FloatLiteralContext ctx) {
+		return new Value(Double.valueOf(ctx.FLOAT().getText()));
 	}
 
 	/** expr op=('*'|'/') expr */
 	@Override
-	public Double visitMulDiv(LEMSExpressionParser.MulDivContext ctx) {
-		Double left = visit(ctx.expr(0)); // get value of left subexpression
-		Double right = visit(ctx.expr(1)); // get value of right subexpression
+	public Value visitMulDiv(LEMSExpressionParser.MulDivContext ctx) {
+		Value left = visit(ctx.expr(0)); 
+		Value right = visit(ctx.expr(1)); 
 		if (ctx.op.getType() == LEMSExpressionParser.MUL)
-			return left * right;
-		return left / right; // must be DIV
+			return new Value(left.asDouble() * right.asDouble());
+		return new Value(left.asDouble() / right.asDouble());
 	}
 
 	/** expr op=('+'|'-') expr */
 	@Override
-	public Double visitAddSub(LEMSExpressionParser.AddSubContext ctx) {
-		Double left = visit(ctx.expr(0)); // get value of left subexpression
-		Double right = visit(ctx.expr(1)); // get value of right subexpression
+	public Value visitAddSub(LEMSExpressionParser.AddSubContext ctx) {
+		Value left = visit(ctx.expr(0)); 
+		Value right = visit(ctx.expr(1)); 
 		if (ctx.op.getType() == LEMSExpressionParser.ADD)
-			return left + right;
-		return left - right; // must be SUB
+			return new Value(left.asDouble() + right.asDouble());
+        return new Value(left.asDouble() - right.asDouble());
 	}
 
 	/** '(' expr ')' */
 	@Override
-	public Double visitParenthesized(LEMSExpressionParser.ParenthesizedContext ctx) {
+	public Value visitParenthesized(LEMSExpressionParser.ParenthesizedContext ctx) {
 		return visit(ctx.expr()); // return child expr's value
 	}
 
 	/** BuiltinFuncs '(' expr ')' */
 	@Override
-	public Double visitFunctionCall(LEMSExpressionParser.FunctionCallContext ctx) {
-		Double ret = null;
+	public Value visitFunctionCall(LEMSExpressionParser.FunctionCallContext ctx) {
+		Value ret = null;
+		//TODO: check nargs (rand takes 0)
 		switch (ctx.BuiltinFuncs().getText()) {
 		case "sin":
-			ret = new Double(Math.sin(visit(ctx.expr())));
+			ret = new Value(Math.sin(visit(ctx.expr()).asDouble()));
 			break;
 		case "cos":
-			ret = new Double(Math.cos(visit(ctx.expr())));
+			ret = new Value(Math.cos(visit(ctx.expr()).asDouble()));
 			break;
 		case "tan":
-			ret = new Double(Math.tan(visit(ctx.expr())));
+			ret = new Value(Math.tan(visit(ctx.expr()).asDouble()));
 			break;
 		case "sinh":
-			ret = new Double(Math.sinh(visit(ctx.expr())));
+			ret = new Value(Math.sinh(visit(ctx.expr()).asDouble()));
 			break;
 		case "cosh":
-			ret = new Double(Math.cosh(visit(ctx.expr())));
+			ret = new Value(Math.cosh(visit(ctx.expr()).asDouble()));
 			break;
 		case "tanh":
-			ret = new Double(Math.tanh(visit(ctx.expr())));
+			ret = new Value(Math.tanh(visit(ctx.expr()).asDouble()));
 			break;
 		case "exp":
-			ret = new Double(Math.exp(visit(ctx.expr())));
+			ret = new Value(Math.exp(visit(ctx.expr()).asDouble()));
 			break;
 		case "log":
-			ret = new Double(Math.log(visit(ctx.expr())));
+			ret = new Value(Math.log(visit(ctx.expr()).asDouble()));
 			break;
 		case "ln":
-			ret = new Double(Math.log(visit(ctx.expr())));
+			ret = new Value(Math.log(visit(ctx.expr()).asDouble()));
 			break;
 		case "floor":
-			ret = new Double(Math.floor(visit(ctx.expr())));
+			ret = new Value(Math.floor(visit(ctx.expr()).asDouble()));
 			break;
 		case "ceil":
-			ret = new Double(Math.ceil(visit(ctx.expr())));
+			ret = new Value(Math.ceil(visit(ctx.expr()).asDouble()));
 			break;
 		case "abs":
-			ret = new Double(Math.abs(visit(ctx.expr())));
+			ret = new Value(Math.abs(visit(ctx.expr()).asDouble()));
 			break;
 		case "random":
-			ret = new Double(Math.random());
+			ret = new Value(Math.random());
 			break;
 		}
 
