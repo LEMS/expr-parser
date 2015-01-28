@@ -11,13 +11,13 @@ SUB :   '-' ;
 POW :   '^' ;
 
 LEQ : '.leq.' ;
-GEQ	: '.geq'  ;
+GEQ	: '.geq.' ;
 LT	: '.lt.'  ;
 GT	: '.gt.'  ;
 EQ	: '.eq.'  ;
 NEQ	: '.neq.' ;
-AND: '.and.';
-OR:	 '.or'  ; 
+AND: '.and.'  ;
+OR:	 '.or.'    ; 
 
 FLOAT:  DIGIT+ '.' DIGIT* EXP? [Ll]?
     |   DIGIT+ EXP? [Ll]?
