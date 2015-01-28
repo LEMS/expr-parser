@@ -21,9 +21,9 @@ arithmetic
 
 logic
 :
-	logic AND logic                                      # And
-	| logic OR logic 									 # Or
-	| arithmetic op = (LEQ | LT | GEQ | GT) arithmetic   # Comparison
+	logic AND logic                                               # And
+	| logic OR logic 									          # Or
+	| arithmetic op = (LEQ | LT | GEQ | GT | EQ | NEQ) arithmetic # Comparison
 ;
 
 
