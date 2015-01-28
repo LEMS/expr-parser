@@ -18,9 +18,9 @@ public class DimensionalAnalysisVisitor extends
 
 	/** expr */
 	@Override
-	public Unit<?> visitBase(LEMSExpressionParser.BaseContext ctx) {
-		Unit<?> result = visit(ctx.expr());
-		System.out.println("[" + ctx.expr().getText() + "] = " + result);
+	public Unit<?> visitExpression(LEMSExpressionParser.ExpressionContext ctx) {
+		Unit<?> result = visit(ctx.arithmetic());
+		System.out.println("[" + ctx.arithmetic().getText() + "] = " + result);
 		return result;
 	}
 
@@ -35,19 +35,19 @@ public class DimensionalAnalysisVisitor extends
 	/** '-' expr */
 	@Override
 	public Unit<?> visitNegate(LEMSExpressionParser.NegateContext ctx) {
-		return visit(ctx.expr());
+		return visit(ctx.arithmetic());
 	}
 
 	/** expr op=POW expr */
 	@Override
 	public Unit<?> visitPow(LEMSExpressionParser.PowContext ctx) {
-		Unit<?> left = visit(ctx.expr(0));
-		Unit<?> right = visit(ctx.expr(1));
+		Unit<?> left = visit(ctx.arithmetic(0));
+		Unit<?> right = visit(ctx.arithmetic(1));
 		if (!right.getDimension().equals(ONE.getDimension())) {
 			StringBuilder msgSb = new StringBuilder();
 			msgSb.append("Expected adimensional exponent in ");
-			msgSb.append("'" + ctx.expr(0).getText() + ctx.op.getText()
-					+ ctx.expr(1).getText() + "'");
+			msgSb.append("'" + ctx.arithmetic(0).getText() + ctx.op.getText()
+					+ ctx.arithmetic(1).getText() + "'");
 			msgSb.append(", but found ");
 			msgSb.append("'" + right.getDimension() + "'");
 			throw new ParseCancellationException(msgSb.toString());
@@ -55,7 +55,7 @@ public class DimensionalAnalysisVisitor extends
 		// TODO: there be dragons. Need to eval expr to get the exp...
 		// hoping to find only integers in exponents, need to
 		// catch exception here
-		return left.pow(Integer.parseInt(ctx.expr(1).getText()));
+		return left.pow(Integer.parseInt(ctx.arithmetic(1).getText()));
 	}
 
 	/** FLOAT */
@@ -67,8 +67,8 @@ public class DimensionalAnalysisVisitor extends
 	/** expr op=('*'|'/') expr */
 	@Override
 	public Unit<?> visitMulDiv(LEMSExpressionParser.MulDivContext ctx) {
-		Unit<?> left = visit(ctx.expr(0));
-		Unit<?> right = visit(ctx.expr(1));
+		Unit<?> left = visit(ctx.arithmetic(0));
+		Unit<?> right = visit(ctx.arithmetic(1));
 		if (ctx.op.getType() == LEMSExpressionParser.MUL)
 			return left.multiply(right);
 		return left.divide(right);
@@ -77,8 +77,8 @@ public class DimensionalAnalysisVisitor extends
 	/** expr op=('+'|'-') expr */
 	@Override
 	public Unit<?> visitAddSub(LEMSExpressionParser.AddSubContext ctx) {
-		Unit<?> left = visit(ctx.expr(0));
-		Unit<?> right = visit(ctx.expr(1));
+		Unit<?> left = visit(ctx.arithmetic(0));
+		Unit<?> right = visit(ctx.arithmetic(1));
 		if (!left.getDimension().equals(right.getDimension())) {
 			StringBuilder msgSb = new StringBuilder();
 			msgSb.append("Incompatible units ");
@@ -86,8 +86,8 @@ public class DimensionalAnalysisVisitor extends
 			msgSb.append(" and ");
 			msgSb.append("'" + right.getDimension() + "'");
 			msgSb.append(" in expression ");
-			msgSb.append("'" + ctx.expr(0).getText() + ctx.op.getText()
-					+ ctx.expr(1).getText() + "'");
+			msgSb.append("'" + ctx.arithmetic(0).getText() + ctx.op.getText()
+					+ ctx.arithmetic(1).getText() + "'");
 			throw new ParseCancellationException(msgSb.toString());
 		}
 		return right;
@@ -96,7 +96,7 @@ public class DimensionalAnalysisVisitor extends
 	/** '(' expr ')' */
 	@Override
 	public Unit<?> visitParenthesized(LEMSExpressionParser.ParenthesizedContext ctx) {
-		return visit(ctx.expr()); // return child expr's value
+		return visit(ctx.arithmetic()); // return child expr's value
 	}
 
 	/** BuiltinFuncs '(' expr ')' */
@@ -107,12 +107,12 @@ public class DimensionalAnalysisVisitor extends
 		case "random":
 			return ONE;
 		default:
-			ret = visit(ctx.expr());
+			ret = visit(ctx.arithmetic());
 			if (!ret.getDimension().equals(ONE.getDimension())) {
 				StringBuilder msgSb = new StringBuilder();
 				msgSb.append("Expected adimensional argument in ");
 				msgSb.append("'" + ctx.BuiltinFuncs().getText());
-				msgSb.append("(" + ctx.expr().getText() + ")'");
+				msgSb.append("(" + ctx.arithmetic().getText() + ")'");
 				msgSb.append(", but found ");
 				msgSb.append("'" + ret.getDimension() + "'");
 				throw new ParseCancellationException(msgSb.toString());

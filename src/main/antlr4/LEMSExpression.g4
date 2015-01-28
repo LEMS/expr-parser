@@ -1,35 +1,47 @@
 grammar LEMSExpression;
+
 import CommonLexerRules;
 
-base:   expr;
+expression
+:
+	(logic | arithmetic)?
+;
 
-expr:   '(' expr ')'                        # Parenthesized
-    |   BuiltinFuncs '(' expr? ')'          # FunctionCall
-    |   expr op=POW expr                    # Pow
-    |   '-' expr                            # Negate
-    |   expr op=(MUL | DIV) expr            # MulDiv
-    |   expr op=(ADD | SUB) expr            # AddSub
-    |   expr op=(LEQ | LT | GEQ | GT) expr  # Comparison
-    |   expr op=AND expr                    # LogicAnd
-    |   expr op=OR expr                     # LogicOr
-    |   FLOAT                               # FloatLiteral
-    |   ID                                  # Identifier
-    ;
+arithmetic
+:
+	'(' arithmetic ')' 				   			# Parenthesized
+	| BuiltinFuncs '(' arithmetic? ')' 			# FunctionCall
+	| arithmetic op = POW arithmetic   			# Pow
+	| '-' arithmetic                   			# Negate
+	| arithmetic op = (MUL | DIV) arithmetic    # MulDiv
+	| arithmetic op = (ADD | SUB) arithmetic    # AddSub
+	| FLOAT 									# FloatLiteral
+	| ID 										# Identifier
+;
+
+logic
+:
+	logic AND logic                                      # And
+	| logic OR logic 									 # Or
+	| arithmetic op = (LEQ | LT | GEQ | GT) arithmetic   # Comparison
+;
 
 
-BuiltinFuncs:   'sin'   
-              | 'cos'  
-              | 'tan' 
-              | 'sqrt'
-              | 'sinh'
-              | 'cosh'
-              | 'tanh'
-              | 'exp'
-              | 'log' 
-              | 'ln' 
-              | 'random'
-              | 'ceil'
-              | 'floor'
-              | 'abs'
-              ;
+BuiltinFuncs
+:
+	'sin'
+	| 'cos'
+	| 'tan'
+	| 'sqrt'
+	| 'sinh'
+	| 'cosh'
+	| 'tanh'
+	| 'exp'
+	| 'log'
+	| 'ln'
+	| 'random'
+	| 'ceil'
+	| 'floor'
+	| 'abs'
+;
 

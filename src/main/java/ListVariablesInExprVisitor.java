@@ -15,8 +15,13 @@ public class ListVariablesInExprVisitor extends LEMSExpressionBaseVisitor<String
 
 	/** expr */
 	@Override
-	public String visitBase(LEMSExpressionParser.BaseContext ctx) {
-		visit(ctx.expr());
+	public String visitExpression(LEMSExpressionParser.ExpressionContext ctx) {
+		if(ctx.arithmetic().isEmpty()){
+			visit(ctx.logic());
+		}
+		else{
+			visit(ctx.arithmetic());
+		}
 		System.out.println("variables in expr:" + variablesInExpr);
 		return variablesInExpr.toString(); 
 	}

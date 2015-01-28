@@ -11,7 +11,7 @@ public class AntlrExpressionParser {
 		LEMSExpressionLexer lexer = new LEMSExpressionLexer(input);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		LEMSExpressionParser parser = new LEMSExpressionParser(tokens);
-		ParseTree tree = parser.base();
+		ParseTree tree = parser.expression();
 		this.tree = tree;
 	}
 
