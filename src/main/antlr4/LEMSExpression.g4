@@ -1,16 +1,14 @@
 grammar LEMSExpression;
 import CommonLexerRules;
 
-expression
-:
+expression:
 	(logic | arithmetic)?
 ;
 
-arithmetic
-:
+arithmetic:
 	'(' arithmetic ')' 				   			# Parenthesized
 	| arithmetic op = POW arithmetic   			# Pow
-	| builtin  '(' arithmetic ')'        # FunctionCall
+	| builtin  '(' arithmetic ')'               # FunctionCall
 	| '-' arithmetic                   			# Negate
 	| arithmetic op = (MUL | DIV) arithmetic    # MulDiv
 	| arithmetic op = (ADD | SUB) arithmetic    # AddSub
@@ -18,21 +16,20 @@ arithmetic
 	| ID 										# Identifier
 ;
 
-logic
-:
+logic:
 	logic AND logic                                               # And
 	| logic OR logic 									          # Or
 	| arithmetic op = (LEQ | LT | GEQ | GT | EQ | NEQ) arithmetic # Comparison
 ;
 
-builtin
-: func = (
+builtin: 
+func = (
 		SIN | COS | TAN
-		| SQRT
 		| SINH | COSH | TANH
 		| EXP | LOG | LN
-		| RAND
-		| CEIL | FLOOR
+		| SQRT
 		| ABS
-		)
+		| CEIL | FLOOR
+		| RAND
+)
 ;
