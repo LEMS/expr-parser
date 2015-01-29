@@ -1,3 +1,4 @@
+package parser.test;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Collections;
@@ -8,6 +9,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.junit.Test;
+
+import parser.ContextEvalVisitor;
+import parser.ListVariablesInExprVisitor;
 
 public class ContextEvalVisitorTest {
 

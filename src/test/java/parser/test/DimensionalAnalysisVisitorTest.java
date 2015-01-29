@@ -1,3 +1,4 @@
+package parser.test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static tec.units.ri.AbstractUnit.ONE;
@@ -13,6 +14,8 @@ import javax.measure.Unit;
 
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.junit.Test;
+
+import parser.DimensionalAnalysisVisitor;
 
 public class DimensionalAnalysisVisitorTest {
 

@@ -1,6 +1,11 @@
+package parser.test;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
+
+import parser.LEMSExpressionBaseVisitor;
+import parser.LEMSExpressionLexer;
+import parser.LEMSExpressionParser;
 
 public class AntlrExpressionParser {
 

@@ -1,6 +1,9 @@
+package parser.test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import parser.EvalVisitor;
 
 public class EvalVisitorTest {
 	private static final double EPSILON = 1e-10d;
