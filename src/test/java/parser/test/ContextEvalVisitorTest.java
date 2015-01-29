@@ -11,7 +11,9 @@ import java.util.Map.Entry;
 import org.junit.Test;
 
 import parser.ContextEvalVisitor;
+import parser.DirectedGraph;
 import parser.ListVariablesInExprVisitor;
+import parser.TopologicalSort;
 
 public class ContextEvalVisitorTest {
 
