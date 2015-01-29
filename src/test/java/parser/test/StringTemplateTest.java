@@ -1,5 +1,6 @@
 package parser.test;
 
+import java.net.URL;
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -24,7 +25,8 @@ public class StringTemplateTest {
 
 	@Test
 	public void testGroup() {
-		STGroup group = new STGroupFile("/Users/boris/git/lems-expr-parser/src/test/java/parser/test/test.stg");
+		URL stURL = getClass().getResource("/test.stg");
+		STGroup group = new STGroupFile(stURL.getFile());
 		ST st = group.getInstanceOf("test");
 
 		model.name = "model";
