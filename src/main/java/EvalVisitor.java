@@ -1,4 +1,5 @@
 
+
 public class EvalVisitor extends LEMSExpressionBaseVisitor<Value> {
 
 	/** expr */
@@ -68,44 +69,44 @@ public class EvalVisitor extends LEMSExpressionBaseVisitor<Value> {
 	public Value visitFunctionCall(LEMSExpressionParser.FunctionCallContext ctx) {
 		Value ret = null;
 		//TODO: check nargs (rand takes 0)
-		switch (ctx.BuiltinFuncs().getText()) {
-		case "sin":
+		switch (ctx.builtin().func.getType()){
+		case LEMSExpressionParser.SIN:
 			ret = new Value(Math.sin(visit(ctx.arithmetic()).asDouble()));
 			break;
-		case "cos":
+		case LEMSExpressionParser.COS:
 			ret = new Value(Math.cos(visit(ctx.arithmetic()).asDouble()));
 			break;
-		case "tan":
+		case LEMSExpressionParser.TAN:
 			ret = new Value(Math.tan(visit(ctx.arithmetic()).asDouble()));
 			break;
-		case "sinh":
+		case LEMSExpressionParser.SINH:
 			ret = new Value(Math.sinh(visit(ctx.arithmetic()).asDouble()));
 			break;
-		case "cosh":
+		case LEMSExpressionParser.COSH:
 			ret = new Value(Math.cosh(visit(ctx.arithmetic()).asDouble()));
 			break;
-		case "tanh":
+		case LEMSExpressionParser.TANH:
 			ret = new Value(Math.tanh(visit(ctx.arithmetic()).asDouble()));
 			break;
-		case "exp":
+		case LEMSExpressionParser.EXP:
 			ret = new Value(Math.exp(visit(ctx.arithmetic()).asDouble()));
 			break;
-		case "log":
+		case LEMSExpressionParser.LOG:
 			ret = new Value(Math.log(visit(ctx.arithmetic()).asDouble()));
 			break;
-		case "ln":
+		case LEMSExpressionParser.LN:
 			ret = new Value(Math.log(visit(ctx.arithmetic()).asDouble()));
 			break;
-		case "floor":
+		case LEMSExpressionParser.FLOOR:
 			ret = new Value(Math.floor(visit(ctx.arithmetic()).asDouble()));
 			break;
-		case "ceil":
+		case LEMSExpressionParser.CEIL:
 			ret = new Value(Math.ceil(visit(ctx.arithmetic()).asDouble()));
 			break;
-		case "abs":
+		case LEMSExpressionParser.ABS:
 			ret = new Value(Math.abs(visit(ctx.arithmetic()).asDouble()));
 			break;
-		case "random":
+		case LEMSExpressionParser.RAND:
 			ret = new Value(Math.random());
 			break;
 		}

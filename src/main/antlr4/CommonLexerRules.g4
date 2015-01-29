@@ -1,8 +1,5 @@
 lexer grammar CommonLexerRules; 
 
-NEWLINE:  '\r' ? '\n'    ; // return newlines to parser (end-statement signal)
-ID  :     [a-zA-Z]+      ; // match identifiers
-WS  :     [ \t]+ -> skip ; // toss out whitespace
 
 MUL :   '*' ;
 DIV :   '/' ;
@@ -17,14 +14,32 @@ GT	: '.gt.'  ;
 EQ	: '.eq.'  ;
 NEQ	: '.neq.' ;
 AND: '.and.'  ;
-OR:	 '.or.'    ; 
+OR:	 '.or.'   ; 
 
-FLOAT:  DIGIT+ '.' DIGIT* EXP? [Ll]?
-    |   DIGIT+ EXP? [Ll]?
-    |   '.' DIGIT+ EXP? [Ll]?
+ABS:   'abs'  ;
+SQRT:  'sqrt' ;
+SIN:   'sin'  ;
+COS:   'cos'  ;
+TAN:   'tan'  ;
+SINH:  'sinh' ;
+COSH:  'cosh' ;
+TANH:  'tanh' ;
+EXP:   'exp'  ;
+LOG:   'log'  ;
+LN:    'ln'   ;
+CEIL:  'ceil' ;
+FLOOR: 'floor';
+RAND:  'random';
+
+ID  :     [a-zA-Z]+      ; 
+WS  :     [ \t]+ -> skip ; 
+
+FLOAT:  DIGIT+ '.' DIGIT* EXPONENT? [Ll]?
+    |   DIGIT+ EXPONENT? [Ll]?
+    |   '.' DIGIT+ EXPONENT? [Ll]?
     ;
 fragment
 DIGIT:  '0'..'9' ; 
 fragment
-EXP :   ('E' | 'e') ('+' | '-')? DIGIT+ ;
+EXPONENT :   ('E' | 'e') ('+' | '-')? DIGIT+ ;
 

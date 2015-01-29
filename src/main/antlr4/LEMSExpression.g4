@@ -1,5 +1,4 @@
 grammar LEMSExpression;
-
 import CommonLexerRules;
 
 expression
@@ -10,8 +9,8 @@ expression
 arithmetic
 :
 	'(' arithmetic ')' 				   			# Parenthesized
-	| BuiltinFuncs '(' arithmetic? ')' 			# FunctionCall
 	| arithmetic op = POW arithmetic   			# Pow
+	| builtin  '(' arithmetic ')'        # FunctionCall
 	| '-' arithmetic                   			# Negate
 	| arithmetic op = (MUL | DIV) arithmetic    # MulDiv
 	| arithmetic op = (ADD | SUB) arithmetic    # AddSub
@@ -26,22 +25,14 @@ logic
 	| arithmetic op = (LEQ | LT | GEQ | GT | EQ | NEQ) arithmetic # Comparison
 ;
 
-
-BuiltinFuncs
-:
-	'sin'
-	| 'cos'
-	| 'tan'
-	| 'sqrt'
-	| 'sinh'
-	| 'cosh'
-	| 'tanh'
-	| 'exp'
-	| 'log'
-	| 'ln'
-	| 'random'
-	| 'ceil'
-	| 'floor'
-	| 'abs'
+builtin
+: func = (
+		SIN | COS | TAN
+		| SQRT
+		| SINH | COSH | TANH
+		| EXP | LOG | LN
+		| RAND
+		| CEIL | FLOOR
+		| ABS
+		)
 ;
-

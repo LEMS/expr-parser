@@ -103,15 +103,15 @@ public class DimensionalAnalysisVisitor extends
 	@Override
 	public Unit<?> visitFunctionCall(LEMSExpressionParser.FunctionCallContext ctx) {
 		Unit<?> ret = null;
-		switch (ctx.BuiltinFuncs().getText()) {
-		case "random":
+		switch (ctx.builtin().func.getType()) {
+		case LEMSExpressionParser.RAND:
 			return ONE;
 		default:
 			ret = visit(ctx.arithmetic());
 			if (!ret.getDimension().equals(ONE.getDimension())) {
 				StringBuilder msgSb = new StringBuilder();
 				msgSb.append("Expected adimensional argument in ");
-				msgSb.append("'" + ctx.BuiltinFuncs().getText());
+				msgSb.append("'" + ctx.builtin().func.getText());
 				msgSb.append("(" + ctx.arithmetic().getText() + ")'");
 				msgSb.append(", but found ");
 				msgSb.append("'" + ret.getDimension() + "'");
