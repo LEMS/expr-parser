@@ -1,0 +1,21 @@
+test(parameters, model) ::= <<
+package parser;
+
+import Parameter;
+
+public class <model.name> 
+{
+    <parameters:{each | private static final Parameter <each>;
+    }>
+
+    public <model.name>()
+    {
+
+    }
+
+    public Double eval()
+    {
+    	return <model.value>;
+    }
+}
+>>
