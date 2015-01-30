@@ -31,6 +31,14 @@ public class AdaptExpressionToLangTest{
 		assertEquals("1/(1+pow(10,(0-0e0)))", adaptTo("1/(1+10^(0-0e0))", adaptor));
 		assertEquals("pow(sin(0.1),2)+pow(cos(0.1),2)", adaptTo("sin(0.1)^2+cos(0.1)^2", adaptor));
 	} 
+	@Test
+	public void testLatex() {
+		AdaptToLatexVisitor adaptor = new AdaptToLatexVisitor();
+		assertEquals("1.1\\times 10^{-1}", adaptTo("1.1e-1", adaptor));
+		assertEquals("\\frac{1}{(1+10^{(0-0\\times 10^{0})})}", adaptTo("1/(1+10^(0-0e0))", adaptor));
+		assertEquals("\\sin^{2}{0.1}+\\cos^{2}{0.1}", adaptTo("sin(0.1)^2+cos(0.1)^2", adaptor));
+		assertEquals("2\\ \\cosh^{(2+\\exp{1})}{0.1}", adaptTo("2*cosh(0.1)^(2+exp(1))", adaptor));
+	} 
 
 	private String adaptTo(String expression, AAdaptToLangVisitor adaptor) {
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
