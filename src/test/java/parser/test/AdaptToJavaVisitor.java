@@ -1,5 +1,6 @@
 package parser.test;
 
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 
 import parser.LEMSExpressionLexer;
@@ -13,16 +14,13 @@ public class AdaptToJavaVisitor extends AAdaptToLangVisitor {
 	}
 
 	@Override
-	String adaptBinOp(Integer opType, String left, String right) {
-		switch(opType){
+	String adaptBinOp(Token op, String left, String right) {
+		switch (op.getType()) {
 		default:
-			//java is ludicrous
-			String tok = LEMSExpressionParser.tokenNames[opType];
-			String op = tok.substring(1, tok.length()-1);
-			return left + op + right;
+			// We use Java notation in LEMS...
+			return left + op.getText() + right;
 		}
 	}
-
 
 	@Override
 	String adaptFuncCall(Integer funcToken, String arg) {
@@ -54,7 +52,8 @@ public class AdaptToJavaVisitor extends AAdaptToLangVisitor {
 		case LEMSExpressionParser.RAND:
 			return TextUtils.funcCall("rand", arg);
 		default:
-			throw new ParseCancellationException("Unknow function " + LEMSExpressionLexer.tokenNames[funcToken]);
+			throw new ParseCancellationException("Unknow function "
+					+ LEMSExpressionLexer.tokenNames[funcToken]);
 		}
 	}
 

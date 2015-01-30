@@ -50,11 +50,8 @@ public class AdaptToLatexVisitor extends AAdaptToLangVisitor {
 	
 
 	@Override
-	String adaptBinOp(Integer opType, String left, String right) {
-		// java is ludicrous
-		String tok = LEMSExpressionParser.tokenNames[opType];
-		String op = tok.substring(1, tok.length() - 1);
-		switch (opType) {
+	String adaptBinOp(Token op, String left, String right) {
+		switch (op.getType()) {
 		case LEMSExpressionParser.MUL:
 			if (right.matches("^[0-9]")) {
 				// need explicit operator e.g. a*2 -> a.2
@@ -66,7 +63,7 @@ public class AdaptToLatexVisitor extends AAdaptToLangVisitor {
 		case LEMSExpressionParser.DIV:
 			return "\\frac" + TextUtils.bracketize(left)  + TextUtils.bracketize(right);
 		default:
-			return left + op + right;
+			return left + op.getText() + right;
 		}
 	}
 

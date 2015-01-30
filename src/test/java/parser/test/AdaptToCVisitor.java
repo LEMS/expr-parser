@@ -1,5 +1,6 @@
 package parser.test;
 
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 
 import parser.LEMSExpressionLexer;
@@ -12,15 +13,12 @@ public class AdaptToCVisitor extends AAdaptToLangVisitor {
 	}
 
 	@Override
-	String adaptBinOp(Integer opType, String left, String right) {
-		// java is ludicrous
-		String tok = LEMSExpressionParser.tokenNames[opType];
-		String op = tok.substring(1, tok.length() - 1);
-		switch (opType) {
+	String adaptBinOp(Token op, String left, String right) {
+		switch (op.getType()) {
 		case LEMSExpressionParser.POW:
 			return TextUtils.funcCall("pow", left, right);
 		default:
-			return left + op + right;
+			return left + op.getText() + right;
 		}
 	}
 
