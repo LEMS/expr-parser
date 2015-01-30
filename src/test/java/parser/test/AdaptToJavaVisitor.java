@@ -4,13 +4,12 @@ import org.antlr.v4.runtime.misc.ParseCancellationException;
 
 import parser.LEMSExpressionLexer;
 import parser.LEMSExpressionParser;
-import parser.test.CodegenTextTools;
 
 public class AdaptToJavaVisitor extends AAdaptToLangVisitor {
 
 	@Override
 	String adaptNegate(String val) {
-		return "-" + CodegenTextTools.parenthesize(val);
+		return "-" + TextUtils.parenthesize(val);
 	}
 
 	@Override
@@ -29,31 +28,31 @@ public class AdaptToJavaVisitor extends AAdaptToLangVisitor {
 	String adaptFuncCall(Integer funcToken, String arg) {
 		switch (funcToken) {
 		case LEMSExpressionParser.SIN:
-			return CodegenTextTools.funcCall("sin", arg);
+			return TextUtils.funcCall("sin", arg);
 		case LEMSExpressionParser.COS:
-			return CodegenTextTools.funcCall("cos", arg);
+			return TextUtils.funcCall("cos", arg);
 		case LEMSExpressionParser.TAN:
-			return CodegenTextTools.funcCall("tan", arg);
+			return TextUtils.funcCall("tan", arg);
 		case LEMSExpressionParser.SINH:
-			return CodegenTextTools.funcCall("tanh", arg);
+			return TextUtils.funcCall("tanh", arg);
 		case LEMSExpressionParser.COSH:
-			return CodegenTextTools.funcCall("cosh", arg);
+			return TextUtils.funcCall("cosh", arg);
 		case LEMSExpressionParser.TANH:
-			return CodegenTextTools.funcCall("tanh", arg);
+			return TextUtils.funcCall("tanh", arg);
 		case LEMSExpressionParser.EXP:
-			return CodegenTextTools.funcCall("exp", arg);
+			return TextUtils.funcCall("exp", arg);
 		case LEMSExpressionParser.LOG:
-			return CodegenTextTools.funcCall("log", arg);
+			return TextUtils.funcCall("log", arg);
 		case LEMSExpressionParser.LN:
-			return CodegenTextTools.funcCall("log", arg);
+			return TextUtils.funcCall("log", arg);
 		case LEMSExpressionParser.FLOOR:
-			return CodegenTextTools.funcCall("floor", arg);
+			return TextUtils.funcCall("floor", arg);
 		case LEMSExpressionParser.CEIL:
-			return CodegenTextTools.funcCall("ceil", arg);
+			return TextUtils.funcCall("ceil", arg);
 		case LEMSExpressionParser.ABS:
-			return CodegenTextTools.funcCall("abs", arg);
+			return TextUtils.funcCall("abs", arg);
 		case LEMSExpressionParser.RAND:
-			return CodegenTextTools.funcCall("rand", arg);
+			return TextUtils.funcCall("rand", arg);
 		default:
 			throw new ParseCancellationException("Unknow function " + LEMSExpressionLexer.tokenNames[funcToken]);
 		}
