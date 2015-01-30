@@ -1,22 +1,19 @@
 package parser;
 
-
-
 public class EvalVisitor extends LEMSExpressionBaseVisitor<Value> {
 
 	/** expr */
 	@Override
 	public Value visitExpression(LEMSExpressionParser.ExpressionContext ctx) {
 		Value result;
-		if(ctx.arithmetic() != null){
+		if (ctx.arithmetic() != null) {
 			result = new Value(visit(ctx.arithmetic()).asDouble());
 			System.out.println(ctx.arithmetic().getText() + " = " + result);
-		}
-		else{
+		} else {
 			result = new Value(visit(ctx.logic()).asBoolean());
 			System.out.println(ctx.logic().getText() + " = " + result);
 		}
-		return result; 
+		return result;
 	}
 
 	/** '-' expr */
@@ -29,8 +26,8 @@ public class EvalVisitor extends LEMSExpressionBaseVisitor<Value> {
 	/** expr op=POW expr */
 	@Override
 	public Value visitPow(LEMSExpressionParser.PowContext ctx) {
-		Value left = visit(ctx.arithmetic(0)); // get value of left subexpression
-		Value right = visit(ctx.arithmetic(1)); // get value of right subexpression
+		Value left = visit(ctx.arithmetic(0));
+		Value right = visit(ctx.arithmetic(1));
 		return new Value(Math.pow(left.asDouble(), right.asDouble()));
 	}
 
@@ -43,8 +40,8 @@ public class EvalVisitor extends LEMSExpressionBaseVisitor<Value> {
 	/** expr op=('*'|'/') expr */
 	@Override
 	public Value visitMulDiv(LEMSExpressionParser.MulDivContext ctx) {
-		Value left = visit(ctx.arithmetic(0)); 
-		Value right = visit(ctx.arithmetic(1)); 
+		Value left = visit(ctx.arithmetic(0));
+		Value right = visit(ctx.arithmetic(1));
 		if (ctx.op.getType() == LEMSExpressionParser.MUL)
 			return new Value(left.asDouble() * right.asDouble());
 		return new Value(left.asDouble() / right.asDouble());
@@ -53,25 +50,26 @@ public class EvalVisitor extends LEMSExpressionBaseVisitor<Value> {
 	/** expr op=('+'|'-') expr */
 	@Override
 	public Value visitAddSub(LEMSExpressionParser.AddSubContext ctx) {
-		Value left = visit(ctx.arithmetic(0)); 
-		Value right = visit(ctx.arithmetic(1)); 
+		Value left = visit(ctx.arithmetic(0));
+		Value right = visit(ctx.arithmetic(1));
 		if (ctx.op.getType() == LEMSExpressionParser.ADD)
 			return new Value(left.asDouble() + right.asDouble());
-        return new Value(left.asDouble() - right.asDouble());
+		return new Value(left.asDouble() - right.asDouble());
 	}
 
 	/** '(' expr ')' */
 	@Override
-	public Value visitParenthesized(LEMSExpressionParser.ParenthesizedContext ctx) {
-		return visit(ctx.arithmetic()); // return child expr's value
+	public Value visitParenthesized(
+			LEMSExpressionParser.ParenthesizedContext ctx) {
+		return visit(ctx.arithmetic());
 	}
 
 	/** BuiltinFuncs '(' expr ')' */
 	@Override
 	public Value visitFunctionCall(LEMSExpressionParser.FunctionCallContext ctx) {
 		Value ret = null;
-		//TODO: check nargs (rand takes 0)
-		switch (ctx.builtin().func.getType()){
+		// TODO: check nargs (rand takes 0)
+		switch (ctx.builtin().func.getType()) {
 		case LEMSExpressionParser.SIN:
 			ret = new Value(Math.sin(visit(ctx.arithmetic()).asDouble()));
 			break;
