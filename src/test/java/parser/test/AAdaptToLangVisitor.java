@@ -44,6 +44,12 @@ public abstract class AAdaptToLangVisitor extends LEMSExpressionBaseVisitor<Stri
 	public String visitFloatLiteral(LEMSExpressionParser.FloatLiteralContext ctx) {
 		return ctx.FLOAT().getText();
 	}
+	
+	/** ID */
+	@Override
+	public String visitIdentifier(LEMSExpressionParser.IdentifierContext ctx) {
+		return ctx.ID().getText();
+	}
 
 	/** expr op=('*'|'/') expr */
 	@Override
