@@ -34,7 +34,7 @@ public class AdaptToCVisitor extends AAdaptToLangVisitor {
 		case LEMSExpressionParser.TAN:
 			return TextUtils.funcCall("tan", arg);
 		case LEMSExpressionParser.SINH:
-			return TextUtils.funcCall("tanh", arg);
+			return TextUtils.funcCall("sinh", arg);
 		case LEMSExpressionParser.COSH:
 			return TextUtils.funcCall("cosh", arg);
 		case LEMSExpressionParser.TANH:
