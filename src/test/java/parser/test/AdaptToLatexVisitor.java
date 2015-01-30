@@ -56,9 +56,9 @@ public class AdaptToLatexVisitor extends AAdaptToLangVisitor {
 		String op = tok.substring(1, tok.length() - 1);
 		switch (opType) {
 		case LEMSExpressionParser.MUL:
-			if (right.startsWith("[0-9]")) {
+			if (right.matches("^[0-9]")) {
 				// need explicit operator e.g. a*2 -> a.2
-				return left + " \\cdot " + right;
+				return left + "\\cdot " + right;
 			} else {
 				// just a space will do e.g. a*b -> a b
 				return left + "\\ " + right;
