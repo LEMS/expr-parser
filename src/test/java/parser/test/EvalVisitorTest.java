@@ -3,6 +3,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import parser.AntlrExpressionParser;
 import parser.EvalVisitor;
 
 public class EvalVisitorTest {

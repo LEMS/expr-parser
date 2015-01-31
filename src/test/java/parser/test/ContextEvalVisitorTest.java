@@ -10,8 +10,11 @@ import java.util.Map.Entry;
 
 import org.junit.Test;
 
+import parser.AntlrExpressionParser;
 import parser.ContextEvalVisitor;
 import parser.ListVariablesInExprVisitor;
+import utils.DirectedGraph;
+import utils.TopologicalSort;
 
 public class ContextEvalVisitorTest {
 

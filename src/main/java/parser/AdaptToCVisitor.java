@@ -1,10 +1,11 @@
-package parser.test;
+package parser;
 
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 
 import parser.LEMSExpressionLexer;
 import parser.LEMSExpressionParser;
+import utils.TextUtils;
 
 public class AdaptToCVisitor extends AAdaptToLangVisitor {
 	@Override

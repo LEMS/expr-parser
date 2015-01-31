@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import parser.AntlrExpressionParser;
 import parser.ListVariablesInExprVisitor;
 
 public class ListVariablesInExprVisitorTest {

@@ -1,4 +1,4 @@
-package parser.test;
+package utils;
 import java.util.Arrays;
 
 import org.apache.commons.lang3.StringUtils;

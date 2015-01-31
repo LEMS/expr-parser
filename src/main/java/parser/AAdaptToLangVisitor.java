@@ -1,4 +1,4 @@
-package parser.test;
+package parser;
 
 import org.antlr.v4.runtime.Token;
 

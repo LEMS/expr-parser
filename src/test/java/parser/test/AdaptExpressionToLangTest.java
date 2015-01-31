@@ -6,6 +6,12 @@ import java.util.List;
 
 import org.junit.Test;
 
+import parser.AAdaptToLangVisitor;
+import parser.AdaptToCVisitor;
+import parser.AdaptToJavaVisitor;
+import parser.AdaptToLatexVisitor;
+import parser.AntlrExpressionParser;
+
 public class AdaptExpressionToLangTest{
 
 	@Test

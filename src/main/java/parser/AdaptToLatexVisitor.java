@@ -1,4 +1,4 @@
-package parser.test;
+package parser;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.misc.ParseCancellationException;
 
 import parser.LEMSExpressionLexer;
 import parser.LEMSExpressionParser;
+import utils.TextUtils;
 
 public class AdaptToLatexVisitor extends AAdaptToLangVisitor {
 	@Override

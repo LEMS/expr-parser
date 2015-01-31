@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import parser.AntlrExpressionParser;
 import parser.ComparisonEvalVisitor;
 
 public class ComparisonVisitorTest {
