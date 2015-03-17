@@ -15,9 +15,9 @@
         </repository>
     </repositories>
 
-    <groupId>org.lemsml.model</groupId>
-    <artifactId>lems-expr-parser</artifactId>
-    <version>0.0-SNAPSHOT</version>
+    <groupId>expr_parser</groupId>
+    <artifactId>expr_parser</artifactId>
+    <version>0.0.1</version>
     <packaging>jar</packaging>
 
     <dependencies>
