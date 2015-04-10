@@ -1,16 +1,17 @@
 package expr_parser.parser;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import parser.LEMSExpressionBaseVisitor;
 import parser.LEMSExpressionParser;
 
 public class ListVariablesInExprVisitor extends LEMSExpressionBaseVisitor<String>
 {
-	List<String> variablesInExpr = new ArrayList<String>();
+	Set<String> variablesInExpr = new HashSet<String>();
 
-	public List<String> getVariablesInExpr()
+	public Set<String> getVariablesInExpr()
 	{
 		return variablesInExpr;
 	}

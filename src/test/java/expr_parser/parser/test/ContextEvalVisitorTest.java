@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -77,7 +78,7 @@ public class ContextEvalVisitorTest
 		return p.parseAndVisitWith(eval).asDouble();
 	}
 
-	private List<String> findDeps(String expression)
+	private Set<String> findDeps(String expression)
 	{
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
 		ListVariablesInExprVisitor listVars = new ListVariablesInExprVisitor();
