@@ -8,33 +8,28 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import org.junit.Test;
 
 import expr_parser.utils.DirectedGraph;
+import expr_parser.utils.ExpressionParser;
 import expr_parser.utils.TopologicalSort;
-import expr_parser.visitors.AntlrExpressionParser;
-import expr_parser.visitors.ContextEval;
-import expr_parser.visitors.ListVariablesInExpr;
 
-public class ContextEvalVisitorTest
-{
+public class ContextEvalVisitorTest {
 
 	@Test
-	public void testContextEval()
-	{
+	public void testContextEval() {
 
 		Map<String, Double> context = new HashMap<String, Double>();
 		context.put("x", 0.5);
 		String expr = "x*(sin(x)^2 + cos(x)^2)";
 
-		assertEquals(evaluateInContext(expr, context), 0.5, 1e-10);
+		assertEquals(ExpressionParser.evaluateInContext(expr, context), 0.5,
+				1e-10);
 	}
 
 	@Test
-	public void testDependencyResolution()
-	{
+	public void testDependencyResolution() {
 
 		// make it a linkedHM to enforce unordered dependencies
 		Map<String, String> expressions = new LinkedHashMap<String, String>();
@@ -48,10 +43,8 @@ public class ContextEvalVisitorTest
 		// Build expression dependency graph
 		DirectedGraph<String> dependencies = new DirectedGraph<String>();
 		dependencies.addNodes(expressions.keySet());
-		for(Entry<String, String> entry : expressions.entrySet())
-		{
-			for(String dep : findDeps(entry.getValue()))
-			{
+		for (Entry<String, String> entry : expressions.entrySet()) {
+			for (String dep : ExpressionParser.findDeps(entry.getValue())) {
 				dependencies.addEdge(entry.getKey(), dep);
 			}
 		}
@@ -62,27 +55,13 @@ public class ContextEvalVisitorTest
 
 		// evaluates all expressions according to dependencies
 		Map<String, Double> context = new HashMap<String, Double>();
-		for(String exp : sorted)
-		{
-			Double res = evaluateInContext(expressions.get(exp), context);
+		for (String exp : sorted) {
+			Double res = ExpressionParser.evaluateInContext(
+					expressions.get(exp), context);
 			context.put(exp, res);
 		}
 
 		assertEquals(context.get("IDependOnOthers"), 2.0, 1e-10);
 	}
 
-	private Double evaluateInContext(String expression, Map<String, Double> context)
-	{
-		AntlrExpressionParser p = new AntlrExpressionParser(expression);
-		ContextEval eval = new ContextEval(context);
-		return p.parseAndVisitWith(eval).asDouble();
-	}
-
-	private Set<String> findDeps(String expression)
-	{
-		AntlrExpressionParser p = new AntlrExpressionParser(expression);
-		ListVariablesInExpr listVars = new ListVariablesInExpr();
-		p.parseAndVisitWith(listVars);
-		return listVars.getVariablesInExpr();
-	}
 }
