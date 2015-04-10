@@ -11,12 +11,10 @@ import org.junit.Test;
 import expr_parser.visitors.AntlrExpressionParser;
 import expr_parser.visitors.ComparisonEval;
 
-public class ComparisonVisitorTest
-{
+public class ComparisonVisitorTest {
 
 	@Test
-	public void testComparisons()
-	{
+	public void testComparisons() {
 
 		Map<String, Double> context = new HashMap<String, Double>();
 		context.put("x", 0.5);
@@ -34,8 +32,7 @@ public class ComparisonVisitorTest
 	}
 
 	@Test
-	public void testAndOr()
-	{
+	public void testAndOr() {
 
 		Map<String, Double> context = new HashMap<String, Double>();
 		context.put("x", 0.5);
@@ -49,8 +46,8 @@ public class ComparisonVisitorTest
 		assertTrue(evaluateInContext("sin(y) .eq. 0 .and. y .lt. 0.5", context));
 	}
 
-	private Boolean evaluateInContext(String expression, Map<String, Double> context)
-	{
+	private Boolean evaluateInContext(String expression,
+			Map<String, Double> context) {
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
 		ComparisonEval eval = new ComparisonEval(context);
 		return p.parseAndVisitWith(eval).asBoolean();

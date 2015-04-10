@@ -1,37 +1,30 @@
 package expr_parser.visitors;
 
-public class Value
-{
+public class Value {
 	public static Value VOID = new Value(new Object());
 
 	final Object value;
 
-	public Value(Object value)
-	{
+	public Value(Object value) {
 		this.value = value;
 	}
 
-	public Boolean asBoolean()
-	{
+	public Boolean asBoolean() {
 		return (Boolean) value;
 	}
 
-	public Double asDouble()
-	{
+	public Double asDouble() {
 		return (Double) value;
 	}
 
-	public boolean isDouble()
-	{
+	public boolean isDouble() {
 		return value instanceof Double;
 	}
 
 	@Override
-	public int hashCode()
-	{
+	public int hashCode() {
 
-		if(value == null)
-		{
+		if (value == null) {
 			return 0;
 		}
 
@@ -39,16 +32,13 @@ public class Value
 	}
 
 	@Override
-	public boolean equals(Object o)
-	{
+	public boolean equals(Object o) {
 
-		if(value == o)
-		{
+		if (value == o) {
 			return true;
 		}
 
-		if(value == null || o == null || o.getClass() != value.getClass())
-		{
+		if (value == null || o == null || o.getClass() != value.getClass()) {
 			return false;
 		}
 
@@ -58,8 +48,7 @@ public class Value
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return String.valueOf(value);
 	}
 

@@ -5,8 +5,7 @@ import org.antlr.v4.runtime.Token;
 import parser.LEMSExpressionBaseVisitor;
 import parser.LEMSExpressionParser;
 
-public abstract class AAdaptToLang extends LEMSExpressionBaseVisitor<String>
-{
+public abstract class AAdaptToLang extends LEMSExpressionBaseVisitor<String> {
 
 	abstract String adaptNegate(String val);
 
@@ -16,16 +15,12 @@ public abstract class AAdaptToLang extends LEMSExpressionBaseVisitor<String>
 
 	/** expr */
 	@Override
-	public String visitExpression(LEMSExpressionParser.ExpressionContext ctx)
-	{
+	public String visitExpression(LEMSExpressionParser.ExpressionContext ctx) {
 		String result;
-		if(ctx.arithmetic() != null)
-		{
+		if (ctx.arithmetic() != null) {
 			result = new String(visit(ctx.arithmetic()));
 			System.out.println(ctx.arithmetic().getText() + " = " + result);
-		}
-		else
-		{
+		} else {
 			result = new String(visit(ctx.logic()));
 			System.out.println(ctx.logic().getText() + " = " + result);
 		}
@@ -34,16 +29,14 @@ public abstract class AAdaptToLang extends LEMSExpressionBaseVisitor<String>
 
 	/** '-' expr */
 	@Override
-	public String visitNegate(LEMSExpressionParser.NegateContext ctx)
-	{
+	public String visitNegate(LEMSExpressionParser.NegateContext ctx) {
 		String val = visit(ctx.arithmetic());
 		return adaptNegate(val);
 	}
 
 	/** expr op=POW expr */
 	@Override
-	public String visitPow(LEMSExpressionParser.PowContext ctx)
-	{
+	public String visitPow(LEMSExpressionParser.PowContext ctx) {
 		String left = visit(ctx.arithmetic(0));
 		String right = visit(ctx.arithmetic(1));
 		return adaptBinOp(ctx.op, left, right);
@@ -51,22 +44,19 @@ public abstract class AAdaptToLang extends LEMSExpressionBaseVisitor<String>
 
 	/** FLOAT */
 	@Override
-	public String visitFloatLiteral(LEMSExpressionParser.FloatLiteralContext ctx)
-	{
+	public String visitFloatLiteral(LEMSExpressionParser.FloatLiteralContext ctx) {
 		return ctx.FLOAT().getText();
 	}
 
 	/** ID */
 	@Override
-	public String visitIdentifier(LEMSExpressionParser.IdentifierContext ctx)
-	{
+	public String visitIdentifier(LEMSExpressionParser.IdentifierContext ctx) {
 		return ctx.ID().getText();
 	}
 
 	/** expr op=('*'|'/') expr */
 	@Override
-	public String visitMulDiv(LEMSExpressionParser.MulDivContext ctx)
-	{
+	public String visitMulDiv(LEMSExpressionParser.MulDivContext ctx) {
 		String left = visit(ctx.arithmetic(0));
 		String right = visit(ctx.arithmetic(1));
 		return adaptBinOp(ctx.op, left, right);
@@ -74,8 +64,7 @@ public abstract class AAdaptToLang extends LEMSExpressionBaseVisitor<String>
 
 	/** expr op=('+'|'-') expr */
 	@Override
-	public String visitAddSub(LEMSExpressionParser.AddSubContext ctx)
-	{
+	public String visitAddSub(LEMSExpressionParser.AddSubContext ctx) {
 		String left = visit(ctx.arithmetic(0));
 		String right = visit(ctx.arithmetic(1));
 		return adaptBinOp(ctx.op, left, right);
@@ -83,16 +72,16 @@ public abstract class AAdaptToLang extends LEMSExpressionBaseVisitor<String>
 
 	/** '(' expr ')' */
 	@Override
-	public String visitParenthesized(LEMSExpressionParser.ParenthesizedContext ctx)
-	{
+	public String visitParenthesized(
+			LEMSExpressionParser.ParenthesizedContext ctx) {
 		return ("(" + visit(ctx.arithmetic()) + ")");
 	}
 
 	/** BuiltinFuncs '(' expr ')' */
 	@Override
-	public String visitFunctionCall(LEMSExpressionParser.FunctionCallContext ctx)
-	{
-		return adaptFuncCall(ctx.builtin().func.getType(), visit(ctx.arithmetic()));
+	public String visitFunctionCall(LEMSExpressionParser.FunctionCallContext ctx) {
+		return adaptFuncCall(ctx.builtin().func.getType(),
+				visit(ctx.arithmetic()));
 	}
 
 }

@@ -7,51 +7,46 @@ import org.junit.Test;
 import expr_parser.visitors.AntlrExpressionParser;
 import expr_parser.visitors.Eval;
 
-public class EvalVisitorTest
-{
+public class EvalVisitorTest {
 	private static final double EPSILON = 1e-10d;
 
 	@Test
-	public void testAddSub()
-	{
+	public void testAddSub() {
 		assertEquals(2.0d, getResult("1.5 + 0.5"), EPSILON);
 		assertEquals(1.0d, getResult("1.5 - 5e-1"), EPSILON);
 	}
 
 	@Test
-	public void testMultDiv()
-	{
+	public void testMultDiv() {
 		assertEquals(-6.0d, getResult("-0.2e1 * 3"), EPSILON);
 		assertEquals(1.0d, getResult("1/3*(9 * 1e1/10.) / (300e-2)"), EPSILON);
 	}
 
 	@Test
-	public void testPow()
-	{
+	public void testPow() {
 		assertEquals(0.5d, getResult("1/(1+10^(0 - 0e0))"), EPSILON);
 	}
 
 	@Test
-	public void testTrig()
-	{
+	public void testTrig() {
 		assertEquals(0.0d, getResult("sin(0)"), EPSILON);
 		assertEquals(1.0d, getResult("cos(0)"), EPSILON);
 		assertEquals(1.0d, getResult("sin(0.1)^2 + cos(0.1)^2"), EPSILON);
-		assertEquals(getResult("tan(1.23)"), getResult("sin(1.23)/cos(1.23)"), EPSILON);
+		assertEquals(getResult("tan(1.23)"), getResult("sin(1.23)/cos(1.23)"),
+				EPSILON);
 	}
 
 	@Test
-	public void testHyp()
-	{
+	public void testHyp() {
 		assertEquals(1.0d, getResult("cosh(0)"), EPSILON);
 		assertEquals(0.0d, getResult("sinh(0.1)+sinh(-0.1)"), EPSILON);
 		assertEquals(1.0d, getResult("cosh(1/2)^2 - sinh(1/2)^2 "), EPSILON);
-		assertEquals(getResult("tanh(0.1)"), getResult("sinh(0.1)/cosh(0.1)"), EPSILON);
+		assertEquals(getResult("tanh(0.1)"), getResult("sinh(0.1)/cosh(0.1)"),
+				EPSILON);
 	}
 
 	@Test
-	public void testExpLog()
-	{
+	public void testExpLog() {
 		assertEquals(0.0d, getResult("log(1)"), EPSILON);
 		assertEquals(0.0d, getResult("ln(1)"), EPSILON);
 		assertEquals(1.0d, getResult("exp(0)"), EPSILON);
@@ -60,16 +55,14 @@ public class EvalVisitorTest
 	}
 
 	@Test
-	public void testFloorCeilAbs()
-	{
+	public void testFloorCeilAbs() {
 		assertEquals(1.0d, getResult("floor(1.1)"), EPSILON);
 		assertEquals(1.0d, getResult("ceil(0.9e0)"), EPSILON);
 		assertEquals(1.0d, getResult("abs(-1)"), EPSILON);
 		assertEquals(1.1d, getResult("abs(1.1e0)"), EPSILON);
 	}
 
-	private Double getResult(String expression)
-	{
+	private Double getResult(String expression) {
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
 		Eval eval = new Eval();
 		return p.parseAndVisitWith(eval).asDouble();

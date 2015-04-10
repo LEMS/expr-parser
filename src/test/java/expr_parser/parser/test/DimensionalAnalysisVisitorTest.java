@@ -19,12 +19,10 @@ import org.junit.Test;
 import expr_parser.visitors.AntlrExpressionParser;
 import expr_parser.visitors.DimensionalAnalysis;
 
-public class DimensionalAnalysisVisitorTest
-{
+public class DimensionalAnalysisVisitorTest {
 
 	@Test
-	public void testAddSub()
-	{
+	public void testAddSub() {
 
 		Unit<?> expected = METRE;
 		Map<String, Unit<?>> context = new HashMap<String, Unit<?>>();
@@ -43,8 +41,7 @@ public class DimensionalAnalysisVisitorTest
 	}
 
 	@Test
-	public void testMulDiv()
-	{
+	public void testMulDiv() {
 		Unit<?> expected = METRE.multiply(MILLI(METRE));
 		Map<String, Unit<?>> context = new HashMap<String, Unit<?>>();
 		context.put("x", CENTI(METRE));
@@ -62,8 +59,7 @@ public class DimensionalAnalysisVisitorTest
 	}
 
 	@Test
-	public void testFuncCall()
-	{
+	public void testFuncCall() {
 
 		Unit<?> expected = MILLI(METRE);
 		Map<String, Unit<?>> context = new HashMap<String, Unit<?>>();
@@ -81,8 +77,7 @@ public class DimensionalAnalysisVisitorTest
 	}
 
 	@Test
-	public void testExponentiation()
-	{
+	public void testExponentiation() {
 
 		Unit<?> expected = MILLI(METRE).multiply(METRE);
 		Map<String, Unit<?>> context = new HashMap<String, Unit<?>>();
@@ -101,27 +96,23 @@ public class DimensionalAnalysisVisitorTest
 
 	}
 
-	private boolean verifyCompatibility(Unit<?> expected, Map<String, Unit<?>> context, String expr)
-	{
-		try
-		{
-			return expected.getDimension().equals(dimensionalAnalysis(expr, context).getDimension());
-		}
-		catch(ParseCancellationException ex)
-		{
+	private boolean verifyCompatibility(Unit<?> expected,
+			Map<String, Unit<?>> context, String expr) {
+		try {
+			return expected.getDimension().equals(
+					dimensionalAnalysis(expr, context).getDimension());
+		} catch (ParseCancellationException ex) {
 			System.out.println(ex.getMessage());
 			return false;
-		}
-		catch(NumberFormatException ex)
-		{
+		} catch (NumberFormatException ex) {
 			System.out.print("TODO: handle exponentiation correctly ");
 			System.out.println(ex.getMessage());
 			return false;
 		}
 	}
 
-	private Unit<?> dimensionalAnalysis(String expression, Map<String, Unit<?>> context)
-	{
+	private Unit<?> dimensionalAnalysis(String expression,
+			Map<String, Unit<?>> context) {
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
 		DimensionalAnalysis eval = new DimensionalAnalysis(context);
 		return p.parseAndVisitWith(eval);

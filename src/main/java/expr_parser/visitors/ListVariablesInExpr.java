@@ -6,12 +6,10 @@ import java.util.Set;
 import parser.LEMSExpressionBaseVisitor;
 import parser.LEMSExpressionParser;
 
-public class ListVariablesInExpr extends LEMSExpressionBaseVisitor<String>
-{
+public class ListVariablesInExpr extends LEMSExpressionBaseVisitor<String> {
 	Set<String> variablesInExpr = new HashSet<String>();
 
-	public Set<String> getVariablesInExpr()
-	{
+	public Set<String> getVariablesInExpr() {
 		return variablesInExpr;
 	}
 
@@ -21,14 +19,10 @@ public class ListVariablesInExpr extends LEMSExpressionBaseVisitor<String>
 
 	/** expr */
 	@Override
-	public String visitExpression(LEMSExpressionParser.ExpressionContext ctx)
-	{
-		if(ctx.arithmetic().isEmpty())
-		{
+	public String visitExpression(LEMSExpressionParser.ExpressionContext ctx) {
+		if (ctx.arithmetic().isEmpty()) {
 			visit(ctx.logic());
-		}
-		else
-		{
+		} else {
 			visit(ctx.arithmetic());
 		}
 		System.out.println("variables in expr:" + variablesInExpr);
@@ -37,8 +31,7 @@ public class ListVariablesInExpr extends LEMSExpressionBaseVisitor<String>
 
 	/** ID */
 	@Override
-	public String visitIdentifier(LEMSExpressionParser.IdentifierContext ctx)
-	{
+	public String visitIdentifier(LEMSExpressionParser.IdentifierContext ctx) {
 		String id = ctx.ID().getText();
 		variablesInExpr.add(id);
 		return id;

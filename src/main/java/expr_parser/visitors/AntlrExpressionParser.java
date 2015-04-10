@@ -8,13 +8,11 @@ import parser.LEMSExpressionBaseVisitor;
 import parser.LEMSExpressionLexer;
 import parser.LEMSExpressionParser;
 
-public class AntlrExpressionParser
-{
+public class AntlrExpressionParser {
 
 	ParseTree tree;
 
-	public AntlrExpressionParser(String expression)
-	{
+	public AntlrExpressionParser(String expression) {
 		ANTLRInputStream input = new ANTLRInputStream(expression);
 		LEMSExpressionLexer lexer = new LEMSExpressionLexer(input);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -23,8 +21,7 @@ public class AntlrExpressionParser
 		this.tree = tree;
 	}
 
-	public <T> T parseAndVisitWith(LEMSExpressionBaseVisitor<T> visitor)
-	{
+	public <T> T parseAndVisitWith(LEMSExpressionBaseVisitor<T> visitor) {
 		return visitor.visit(tree);
 	}
 
