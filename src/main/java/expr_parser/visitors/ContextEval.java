@@ -1,15 +1,15 @@
-package expr_parser.parser;
+package expr_parser.visitors;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import parser.LEMSExpressionParser;
 
-public class ContextEvalVisitor extends EvalVisitor
+public class ContextEval extends Eval
 {
 	Map<String, Double> context = new HashMap<String, Double>();
 
-	public ContextEvalVisitor(Map<String, Double> context)
+	public ContextEval(Map<String, Double> context)
 	{
 		this.context = context;
 	}

@@ -1,4 +1,4 @@
-package expr_parser.parser;
+package expr_parser.visitors;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,7 +6,7 @@ import java.util.Set;
 import parser.LEMSExpressionBaseVisitor;
 import parser.LEMSExpressionParser;
 
-public class ListVariablesInExprVisitor extends LEMSExpressionBaseVisitor<String>
+public class ListVariablesInExpr extends LEMSExpressionBaseVisitor<String>
 {
 	Set<String> variablesInExpr = new HashSet<String>();
 

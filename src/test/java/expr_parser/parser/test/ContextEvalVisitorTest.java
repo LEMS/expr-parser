@@ -12,11 +12,11 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import expr_parser.parser.AntlrExpressionParser;
-import expr_parser.parser.ContextEvalVisitor;
-import expr_parser.parser.ListVariablesInExprVisitor;
 import expr_parser.utils.DirectedGraph;
 import expr_parser.utils.TopologicalSort;
+import expr_parser.visitors.AntlrExpressionParser;
+import expr_parser.visitors.ContextEval;
+import expr_parser.visitors.ListVariablesInExpr;
 
 public class ContextEvalVisitorTest
 {
@@ -74,14 +74,14 @@ public class ContextEvalVisitorTest
 	private Double evaluateInContext(String expression, Map<String, Double> context)
 	{
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
-		ContextEvalVisitor eval = new ContextEvalVisitor(context);
+		ContextEval eval = new ContextEval(context);
 		return p.parseAndVisitWith(eval).asDouble();
 	}
 
 	private Set<String> findDeps(String expression)
 	{
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
-		ListVariablesInExprVisitor listVars = new ListVariablesInExprVisitor();
+		ListVariablesInExpr listVars = new ListVariablesInExpr();
 		p.parseAndVisitWith(listVars);
 		return listVars.getVariablesInExpr();
 	}

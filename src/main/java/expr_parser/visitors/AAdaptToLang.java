@@ -1,11 +1,11 @@
-package expr_parser.parser;
+package expr_parser.visitors;
 
 import org.antlr.v4.runtime.Token;
 
 import parser.LEMSExpressionBaseVisitor;
 import parser.LEMSExpressionParser;
 
-public abstract class AAdaptToLangVisitor extends LEMSExpressionBaseVisitor<String>
+public abstract class AAdaptToLang extends LEMSExpressionBaseVisitor<String>
 {
 
 	abstract String adaptNegate(String val);

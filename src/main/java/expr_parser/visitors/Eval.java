@@ -1,9 +1,9 @@
-package expr_parser.parser;
+package expr_parser.visitors;
 
 import parser.LEMSExpressionBaseVisitor;
 import parser.LEMSExpressionParser;
 
-public class EvalVisitor extends LEMSExpressionBaseVisitor<Value>
+public class Eval extends LEMSExpressionBaseVisitor<Value>
 {
 
 	/** expr */

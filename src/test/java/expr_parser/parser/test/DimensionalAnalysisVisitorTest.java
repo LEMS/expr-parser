@@ -16,8 +16,8 @@ import javax.measure.Unit;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.junit.Test;
 
-import expr_parser.parser.AntlrExpressionParser;
-import expr_parser.parser.DimensionalAnalysisVisitor;
+import expr_parser.visitors.AntlrExpressionParser;
+import expr_parser.visitors.DimensionalAnalysis;
 
 public class DimensionalAnalysisVisitorTest
 {
@@ -123,7 +123,7 @@ public class DimensionalAnalysisVisitorTest
 	private Unit<?> dimensionalAnalysis(String expression, Map<String, Unit<?>> context)
 	{
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
-		DimensionalAnalysisVisitor eval = new DimensionalAnalysisVisitor(context);
+		DimensionalAnalysis eval = new DimensionalAnalysis(context);
 		return p.parseAndVisitWith(eval);
 	}
 

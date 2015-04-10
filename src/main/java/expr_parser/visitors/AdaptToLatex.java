@@ -1,4 +1,4 @@
-package expr_parser.parser;
+package expr_parser.visitors;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,7 +10,7 @@ import parser.LEMSExpressionLexer;
 import parser.LEMSExpressionParser;
 import expr_parser.utils.TextUtils;
 
-public class AdaptToLatexVisitor extends AAdaptToLangVisitor
+public class AdaptToLatex extends AAdaptToLang
 {
 	@Override
 	String adaptNegate(String val)

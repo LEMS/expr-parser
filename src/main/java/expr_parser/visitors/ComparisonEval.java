@@ -1,10 +1,10 @@
-package expr_parser.parser;
+package expr_parser.visitors;
 
 import java.util.Map;
 
 import parser.LEMSExpressionParser;
 
-public class ComparisonEvalVisitor extends ContextEvalVisitor
+public class ComparisonEval extends ContextEval
 {
 
 	private boolean isTrue;
@@ -14,7 +14,7 @@ public class ComparisonEvalVisitor extends ContextEvalVisitor
 		return isTrue;
 	}
 
-	public ComparisonEvalVisitor(Map<String, Double> context)
+	public ComparisonEval(Map<String, Double> context)
 	{
 		super(context);
 	}

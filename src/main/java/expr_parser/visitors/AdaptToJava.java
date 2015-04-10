@@ -1,4 +1,4 @@
-package expr_parser.parser;
+package expr_parser.visitors;
 
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
@@ -7,7 +7,7 @@ import parser.LEMSExpressionLexer;
 import parser.LEMSExpressionParser;
 import expr_parser.utils.TextUtils;
 
-public class AdaptToJavaVisitor extends AAdaptToLangVisitor
+public class AdaptToJava extends AAdaptToLang
 {
 
 	@Override
