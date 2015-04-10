@@ -31,15 +31,26 @@ CEIL:  'ceil' ;
 FLOOR: 'floor';
 RAND:  'random';
 
-ID  :     [a-zA-Z]+      ; 
+//ID  :     [a-zA-Z]+      ; 
+ID  :     ( LETTER | '_' | ':') (NAMECHAR)*  ; 
 WS  :     [ \t]+ -> skip ; 
 
 FLOAT:  DIGIT+ '.' DIGIT* EXPONENT? [Ll]?
     |   DIGIT+ EXPONENT? [Ll]?
     |   '.' DIGIT+ EXPONENT? [Ll]?
     ;
-fragment
-DIGIT:  '0'..'9' ; 
-fragment
-EXPONENT :   ('E' | 'e') ('+' | '-')? DIGIT+ ;
 
+fragment EXPONENT 
+	:   ('E' | 'e') ('+' | '-')? DIGIT+ ;
+
+fragment DIGIT
+	:  '0'..'9' ; 
+
+fragment LETTER
+    : 'a'..'z'
+    | 'A'..'Z'
+    ;
+    
+fragment NAMECHAR
+    : LETTER | DIGIT | '.' | '-' | '_' | ':'
+    ;
