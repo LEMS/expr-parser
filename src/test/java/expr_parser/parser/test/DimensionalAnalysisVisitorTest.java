@@ -13,7 +13,6 @@ import java.util.Map;
 
 import javax.measure.Unit;
 
-import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.junit.Test;
 
 import expr_parser.utils.ExpressionParser;
@@ -28,14 +27,14 @@ public class DimensionalAnalysisVisitorTest {
 		context.put("x", CENTI(METRE));
 
 		String expr = "x + x";
-		assertTrue(verifyCompatibility(expected, context, expr));
+		assertTrue(ExpressionParser.verifyUnitCompatibility(expected, context, expr));
 
 		context.put("y", MILLI(METRE));
 		expr = "x + y";
-		assertTrue(verifyCompatibility(expected, context, expr));
+		assertTrue(ExpressionParser.verifyUnitCompatibility(expected, context, expr));
 
 		expr = "x + 1";
-		assertFalse(verifyCompatibility(expected, context, expr));
+		assertFalse(ExpressionParser.verifyUnitCompatibility(expected, context, expr));
 
 	}
 
@@ -46,14 +45,14 @@ public class DimensionalAnalysisVisitorTest {
 		context.put("x", CENTI(METRE));
 
 		String expr = "x*x*x/x";
-		assertTrue(verifyCompatibility(expected, context, expr));
+		assertTrue(ExpressionParser.verifyUnitCompatibility(expected, context, expr));
 
 		context.put("y", MILLI(AMPERE));
 		expr = "(y*x/y)*x";
-		assertTrue(verifyCompatibility(expected, context, expr));
+		assertTrue(ExpressionParser.verifyUnitCompatibility(expected, context, expr));
 
 		expr = "y/x";
-		assertFalse(verifyCompatibility(expected, context, expr));
+		assertFalse(ExpressionParser.verifyUnitCompatibility(expected, context, expr));
 
 	}
 
@@ -65,13 +64,13 @@ public class DimensionalAnalysisVisitorTest {
 		context.put("x", CENTI(METRE));
 
 		String expr = "exp(x)";
-		assertFalse(verifyCompatibility(expected, context, expr));
+		assertFalse(ExpressionParser.verifyUnitCompatibility(expected, context, expr));
 
 		expr = "x*(sin(x/x)^2 + cos(2*x*x/(x^2))^2) + x";
-		assertTrue(verifyCompatibility(expected, context, expr));
+		assertTrue(ExpressionParser.verifyUnitCompatibility(expected, context, expr));
 
 		expr = "1/(1+exp((x - x)/(10*x)))";
-		assertTrue(verifyCompatibility(ONE, context, expr));
+		assertTrue(ExpressionParser.verifyUnitCompatibility(ONE, context, expr));
 
 	}
 
@@ -83,32 +82,19 @@ public class DimensionalAnalysisVisitorTest {
 		context.put("x", CENTI(METRE));
 
 		String expr = "x^2";
-		assertTrue(verifyCompatibility(expected, context, expr));
+		assertTrue(ExpressionParser.verifyUnitCompatibility(expected, context, expr));
 
 		expr = "x^x";
-		assertFalse(verifyCompatibility(expected, context, expr));
+		assertFalse(ExpressionParser.verifyUnitCompatibility(expected, context, expr));
 
 		// TODO: think about this case...
 		// It seems we'll need a full-fledged dimensional expression evaluator
 		expr = "x^(1+1)";
-		assertFalse(verifyCompatibility(ONE, context, expr));
+		assertFalse(ExpressionParser.verifyUnitCompatibility(ONE, context, expr));
 
 	}
 
-	private boolean verifyCompatibility(Unit<?> expected,
-			Map<String, Unit<?>> context, String expr) {
-		try {
-			return expected.getDimension().equals(
-					ExpressionParser.dimensionalAnalysis(expr, context).getDimension());
-		} catch (ParseCancellationException ex) {
-			System.out.println(ex.getMessage());
-			return false;
-		} catch (NumberFormatException ex) {
-			System.out.print("TODO: handle exponentiation correctly ");
-			System.out.println(ex.getMessage());
-			return false;
-		}
-	}
+
 
 
 }

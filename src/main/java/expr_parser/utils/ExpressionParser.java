@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.measure.Unit;
 
+import org.antlr.v4.runtime.misc.ParseCancellationException;
+
 import expr_parser.visitors.AntlrExpressionParser;
 import expr_parser.visitors.ContextEval;
 import expr_parser.visitors.DimensionalAnalysis;
@@ -31,6 +33,21 @@ public class ExpressionParser {
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
 		DimensionalAnalysis eval = new DimensionalAnalysis(context);
 		return p.parseAndVisitWith(eval);
+	}
+	
+	public static boolean verifyUnitCompatibility(Unit<?> expected,
+			Map<String, Unit<?>> context, String expr) {
+		try {
+			return expected.getDimension().equals(
+					ExpressionParser.dimensionalAnalysis(expr, context).getDimension());
+		} catch (ParseCancellationException ex) {
+			System.out.println(ex.getMessage());
+			return false;
+		} catch (NumberFormatException ex) {
+			System.out.print("TODO: handle exponentiation correctly ");
+			System.out.println(ex.getMessage());
+			return false;
+		}
 	}
 
 }
