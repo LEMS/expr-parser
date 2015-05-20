@@ -21,7 +21,7 @@ public class ExpressionParser {
 		return p.parseAndVisitWith(eval).asDouble();
 	}
 
-	public static Set<String> findDeps(String expression) {
+	public static Set<String> listSymbolsInExpression(String expression) {
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
 		ListVariablesInExpr listVars = new ListVariablesInExpr();
 		p.parseAndVisitWith(listVars);

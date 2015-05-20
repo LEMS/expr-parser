@@ -44,7 +44,7 @@ public class ContextEvalVisitorTest {
 		DirectedGraph<String> dependencies = new DirectedGraph<String>();
 		dependencies.addNodes(expressions.keySet());
 		for (Entry<String, String> entry : expressions.entrySet()) {
-			for (String dep : ExpressionParser.findDeps(entry.getValue())) {
+			for (String dep : ExpressionParser.listSymbolsInExpression(entry.getValue())) {
 				dependencies.addEdge(entry.getKey(), dep);
 			}
 		}
