@@ -25,7 +25,7 @@ public class ListVariablesInExpr extends LEMSExpressionBaseVisitor<String> {
 		} else {
 			visit(ctx.arithmetic());
 		}
-		System.out.println("variables in expr:" + variablesInExpr);
+		//System.out.println("variables in expr:" + variablesInExpr);
 		return variablesInExpr.toString();
 	}
 

@@ -11,10 +11,10 @@ public class Eval extends LEMSExpressionBaseVisitor<Value> {
 		Value result;
 		if (ctx.arithmetic() != null) {
 			result = new Value(visit(ctx.arithmetic()).asDouble());
-			System.out.println(ctx.arithmetic().getText() + " = " + result);
+			//System.out.println(ctx.arithmetic().getText() + " = " + result);
 		} else {
 			result = new Value(visit(ctx.logic()).asBoolean());
-			System.out.println(ctx.logic().getText() + " = " + result);
+			//System.out.println(ctx.logic().getText() + " = " + result);
 		}
 		return result;
 	}
