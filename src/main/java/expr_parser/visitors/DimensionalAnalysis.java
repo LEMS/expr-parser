@@ -23,7 +23,7 @@ public class DimensionalAnalysis extends LEMSExpressionBaseVisitor<Unit<?>> {
 	@Override
 	public Unit<?> visitExpression(LEMSExpressionParser.ExpressionContext ctx) {
 		Unit<?> result = visit(ctx.arithmetic());
-		System.out.println("[" + ctx.arithmetic().getText() + "] = " + result);
+		//System.out.println("[" + ctx.arithmetic().getText() + "] = " + result);
 		return result;
 	}
 
