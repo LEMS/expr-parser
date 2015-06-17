@@ -7,13 +7,13 @@ import java.util.List;
 
 import org.junit.Test;
 
-import expr_parser.visitors.AAdaptToLang;
-import expr_parser.visitors.AdaptToC;
-import expr_parser.visitors.AdaptToJava;
-import expr_parser.visitors.AdaptToLatex;
+import expr_parser.visitors.ARenderAs;
+import expr_parser.visitors.RenderC;
+import expr_parser.visitors.RenderJava;
+import expr_parser.visitors.RenderLatex;
 import expr_parser.visitors.AntlrExpressionParser;
 
-public class AdaptExpressionToLangTest {
+public class RenderExpressionAsLangTest {
 
 	@Test
 	public void testJava() {
@@ -23,14 +23,14 @@ public class AdaptExpressionToLangTest {
 		testStrings.add("1/(1+10^(0-0e0))");
 		testStrings.add("sin(0.1)^2+cos(0.1)^2");
 		for (String tst : testStrings) {
-			assertEquals(tst, adaptTo(tst, new AdaptToJava()));
+			assertEquals(tst, adaptTo(tst, new RenderJava()));
 		}
 	}
 
 	@Test
 	public void testC() {
 		List<String> testStrings = new ArrayList<String>();
-		AdaptToC adaptor = new AdaptToC();
+		RenderC adaptor = new RenderC();
 		testStrings.add("1.5+0.5");
 		testStrings.add("1/3*(9*1e1/10.)/(300e-2)");
 		for (String tst : testStrings) {
@@ -44,7 +44,7 @@ public class AdaptExpressionToLangTest {
 
 	@Test
 	public void testLatex() {
-		AdaptToLatex adaptor = new AdaptToLatex();
+		RenderLatex adaptor = new RenderLatex();
 		assertEquals("1.1\\times 10^{-1}", adaptTo("1.1e-1", adaptor));
 		assertEquals("\\frac{1}{(1+10^{(0-0\\times 10^{0})})}",
 				adaptTo("1/(1+10^(0-0e0))", adaptor));
@@ -54,7 +54,7 @@ public class AdaptExpressionToLangTest {
 				adaptTo("a*cosh(0.1)^(exp(b)*2)", adaptor));
 	}
 
-	private String adaptTo(String expression, AAdaptToLang adaptor) {
+	private String adaptTo(String expression, ARenderAs adaptor) {
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
 		return p.parseAndVisitWith(adaptor);
 	}

@@ -10,7 +10,7 @@ import parser.LEMSExpressionLexer;
 import parser.LEMSExpressionParser;
 import expr_parser.utils.TextUtils;
 
-public class AdaptToLatex extends AAdaptToLang {
+public class RenderLatex extends ARenderAs {
 	@Override
 	String adaptNegate(String val) {
 		return "-" + TextUtils.parenthesize(val);

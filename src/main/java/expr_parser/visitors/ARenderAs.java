@@ -5,7 +5,7 @@ import org.antlr.v4.runtime.Token;
 import parser.LEMSExpressionBaseVisitor;
 import parser.LEMSExpressionParser;
 
-public abstract class AAdaptToLang extends LEMSExpressionBaseVisitor<String> {
+public abstract class ARenderAs extends LEMSExpressionBaseVisitor<String> {
 
 	abstract String adaptNegate(String val);
 

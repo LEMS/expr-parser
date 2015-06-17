@@ -7,7 +7,8 @@ import parser.LEMSExpressionLexer;
 import parser.LEMSExpressionParser;
 import expr_parser.utils.TextUtils;
 
-public class AdaptToC extends AAdaptToLang {
+public class RenderJava extends ARenderAs {
+
 	@Override
 	String adaptNegate(String val) {
 		return "-" + TextUtils.parenthesize(val);
@@ -16,9 +17,8 @@ public class AdaptToC extends AAdaptToLang {
 	@Override
 	String adaptBinOp(Token op, String left, String right) {
 		switch (op.getType()) {
-		case LEMSExpressionParser.POW:
-			return TextUtils.funcCall("pow", left, right);
 		default:
+			// We use Java notation in LEMS...
 			return left + op.getText() + right;
 		}
 	}
@@ -49,7 +49,7 @@ public class AdaptToC extends AAdaptToLang {
 		case LEMSExpressionParser.CEIL:
 			return TextUtils.funcCall("ceil", arg);
 		case LEMSExpressionParser.ABS:
-			return TextUtils.funcCall("fabs", arg);
+			return TextUtils.funcCall("abs", arg);
 		case LEMSExpressionParser.RAND:
 			return TextUtils.funcCall("rand", arg);
 		default:
@@ -57,4 +57,5 @@ public class AdaptToC extends AAdaptToLang {
 					+ LEMSExpressionLexer.tokenNames[funcToken]);
 		}
 	}
+
 }
