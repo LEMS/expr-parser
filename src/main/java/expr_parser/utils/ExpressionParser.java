@@ -14,8 +14,12 @@ import expr_parser.visitors.ListVariablesInExpr;
 
 public class ExpressionParser {
 
-	public static Double evaluateInContext(String expression,
-			Map<String, Double> context) {
+	public static Double evaluateInContext(String expression, Map<String, Double> context) throws UndefinedSymbolException {
+		Set<String> depVars = listSymbolsInExpression(expression); 
+		depVars.removeAll(context.keySet());
+		if(depVars.size() > 0){
+			throw new UndefinedSymbolException("Symbol(s) '" + depVars  + "' undefined in expression '" + expression + "'");
+		}
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
 		ContextEval eval = new ContextEval(context);
 		return p.parseAndVisitWith(eval).asDouble();

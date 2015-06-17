@@ -18,7 +18,7 @@ import expr_parser.utils.TopologicalSort;
 public class ContextEvalVisitorTest {
 
 	@Test
-	public void testContextEval() {
+	public void testContextEval() throws Exception {
 
 		Map<String, Double> context = new HashMap<String, Double>();
 		context.put("x", 0.5);
@@ -29,7 +29,7 @@ public class ContextEvalVisitorTest {
 	}
 
 	@Test
-	public void testDependencyResolution() {
+	public void testDependencyResolution() throws Exception {
 
 		// make it a linkedHM to enforce unordered dependencies
 		Map<String, String> expressions = new LinkedHashMap<String, String>();
