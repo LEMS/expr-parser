@@ -40,6 +40,12 @@ public class Eval extends LEMSExpressionBaseVisitor<Value> {
 		return new Value(Double.valueOf(ctx.FLOAT().getText()));
 	}
 
+	/** FLOAT ID */
+	@Override
+	public Value visitDimensionalLiteral(LEMSExpressionParser.DimensionalLiteralContext ctx) {
+		return new Value(Double.valueOf(ctx.FLOAT().getText()));
+	}
+
 	/** expr op=('*'|'/') expr */
 	@Override
 	public Value visitMulDiv(LEMSExpressionParser.MulDivContext ctx) {

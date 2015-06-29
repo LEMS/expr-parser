@@ -68,6 +68,13 @@ public class DimensionalAnalysis extends LEMSExpressionBaseVisitor<Unit<?>> {
 		return ONE;
 	}
 
+	/** FLOAT ID */
+	@Override
+	public Unit<?> visitDimensionalLiteral(LEMSExpressionParser.DimensionalLiteralContext ctx) {
+		return context.get(ctx.ID().getText());
+	}
+
+
 	/** expr op=('*'|'/') expr */
 	@Override
 	public Unit<?> visitMulDiv(LEMSExpressionParser.MulDivContext ctx) {

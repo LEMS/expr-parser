@@ -1,4 +1,4 @@
-lexer grammar CommonLexerRules; 
+lexer grammar CommonLexerRules;
 
 
 MUL :   '*' ;
@@ -14,7 +14,7 @@ GT	: '.gt.'  ;
 EQ	: '.eq.'  ;
 NEQ	: '.neq.' ;
 AND: '.and.'  ;
-OR:	 '.or.'   ; 
+OR:	 '.or.'   ;
 
 ABS:   'abs'  ;
 SQRT:  'sqrt' ;
@@ -31,26 +31,26 @@ CEIL:  'ceil' ;
 FLOOR: 'floor';
 RAND:  'random';
 
-//ID  :     [a-zA-Z]+      ; 
-ID  :     ( LETTER | '_' | ':') (NAMECHAR)*  ; 
-WS  :     [ \t]+ -> skip ; 
+//ID  :     [a-zA-Z]+      ;
+ID  :     ( LETTER | '_' | ':') (NAMECHAR)*  ;
+WS  :     [ \t]+ -> skip ;
 
 FLOAT:  DIGIT+ '.' DIGIT* EXPONENT? [Ll]?
     |   DIGIT+ EXPONENT? [Ll]?
     |   '.' DIGIT+ EXPONENT? [Ll]?
     ;
 
-fragment EXPONENT 
+fragment EXPONENT
 	:   ('E' | 'e') ('+' | '-')? DIGIT+ ;
 
 fragment DIGIT
-	:  '0'..'9' ; 
+	:  '0'..'9' ;
 
 fragment LETTER
     : 'a'..'z'
     | 'A'..'Z'
     ;
-    
+
 fragment NAMECHAR
     : LETTER | DIGIT | '.' | '-' | '_' | ':'
     ;

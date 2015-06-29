@@ -62,6 +62,13 @@ public class EvalVisitorTest {
 		assertEquals(1.1d, getResult("abs(1.1e0)"), EPSILON);
 	}
 
+	@Test
+	public void testDimensionalLiteral() {
+		assertEquals(10.0d, getResult("10V"), EPSILON);
+		assertEquals(5.0d, getResult("5 nA"), EPSILON);
+		assertEquals(1.2d, getResult("1.2 mol_per_m_per_A_per_s"), EPSILON);
+	}
+
 	private Double getResult(String expression) {
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
 		Eval eval = new Eval();
