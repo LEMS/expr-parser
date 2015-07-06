@@ -52,5 +52,5 @@ fragment LETTER
     ;
 
 fragment NAMECHAR
-    : LETTER | DIGIT | '.' | '-' | '_' | ':'
+    : LETTER | DIGIT | '.' | '_' | ':'
     ;

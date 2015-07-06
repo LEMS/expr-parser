@@ -3,10 +3,10 @@ package expr_parser.parser.test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static tec.units.ri.AbstractUnit.ONE;
-import static tec.units.ri.util.SI.AMPERE;
-import static tec.units.ri.util.SI.METRE;
-import static tec.units.ri.util.SIPrefix.CENTI;
-import static tec.units.ri.util.SIPrefix.MILLI;
+import static tec.units.ri.unit.SI.AMPERE;
+import static tec.units.ri.unit.SI.METRE;
+import static tec.units.ri.unit.MetricPrefix.CENTI;
+import static tec.units.ri.unit.MetricPrefix.MILLI;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +19,7 @@ import expr_parser.utils.ExpressionParser;
 
 public class DimensionalAnalysisVisitorTest {
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testAddSub() {
 
@@ -41,6 +42,7 @@ public class DimensionalAnalysisVisitorTest {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testMulDiv() {
 		Unit<?> expected = METRE.multiply(MILLI(METRE));
@@ -62,6 +64,7 @@ public class DimensionalAnalysisVisitorTest {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testFuncCall() {
 
@@ -82,6 +85,7 @@ public class DimensionalAnalysisVisitorTest {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testExponentiation() {
 
@@ -105,6 +109,7 @@ public class DimensionalAnalysisVisitorTest {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testLiteral() {
 
@@ -114,6 +119,9 @@ public class DimensionalAnalysisVisitorTest {
 
 		String expr = "1.2 cm";
 		assertTrue(ExpressionParser.verifyUnitCompatibility(expected, context, expr));
+
+		Unit<?> res = ExpressionParser.dimensionalAnalysis(expr, context);
+		System.out.println(res);
 
 	}
 
