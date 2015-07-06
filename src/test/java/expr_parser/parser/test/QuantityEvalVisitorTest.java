@@ -39,8 +39,10 @@ public class QuantityEvalVisitorTest {
 		ctxt.put("x", Quantities.getQuantity(1.0, CENTI(METRE)));
 		ctxt.put("y", Quantities.getQuantity(1.0, SECOND));
 		uctxt.put("cm", CENTI(METRE));
+		uctxt.put("m", METRE);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void shouldPass() throws UndefinedSymbolException {
 
@@ -54,6 +56,12 @@ public class QuantityEvalVisitorTest {
 		verify("x * sin(3.14159265358979 cm/x/2.)", cm(1.));
 		verify("x * y / y / x * (x-x)", cm(0.));
 		verify("cos(x * y / y / x * (x-x)/2/x)", Quantities.getQuantity(1., ONE));
+		verify("-0.1cm", cm(-0.1));
+
+		//non commutativity!!!
+		// am I shooting myself in the foot?
+		verify("1cm + 1m", cm(101.));
+		verify("1m + 1cm", Quantities.getQuantity(1.01, METRE));
 	}
 
 

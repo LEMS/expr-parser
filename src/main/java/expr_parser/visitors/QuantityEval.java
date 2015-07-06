@@ -49,7 +49,8 @@ public class QuantityEval extends LEMSExpressionBaseVisitor<Quantity<?>> {
 	/** '-' expr */
 	@Override
 	public Quantity<?> visitNegate(LEMSExpressionParser.NegateContext ctx) {
-		return visit(ctx.arithmetic());
+		Quantity<?> visited = visit(ctx.arithmetic());
+		return Quantities.getQuantity(-visited.getValue().doubleValue(), visited.getUnit());
 	}
 
 	/** expr op=POW expr */
