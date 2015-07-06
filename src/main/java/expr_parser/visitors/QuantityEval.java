@@ -2,6 +2,7 @@ package expr_parser.visitors;
 
 import static tec.units.ri.AbstractUnit.ONE;
 
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import javax.measure.UnitConverter;
 
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 
+import expr_parser.utils.UndefinedSymbolException;
 import parser.LEMSExpressionBaseVisitor;
 import parser.LEMSExpressionParser;
 import tec.units.ri.quantity.Quantities;
@@ -39,11 +41,15 @@ public class QuantityEval extends LEMSExpressionBaseVisitor<Quantity<?>> {
 
 	/** ID */
 	@Override
-	public Quantity<?> visitIdentifier(
-			LEMSExpressionParser.IdentifierContext ctx) {
+	public Quantity<?> visitIdentifier(LEMSExpressionParser.IdentifierContext ctx) {
 		String id = ctx.ID().getText();
-		// TODO: check for undefined ids
-		return context.get(id);
+		Quantity<?> quantity = context.get(id);
+		if(null == quantity){
+			String msg = MessageFormat
+				.format("Symbol {0} undefined.", ctx.ID().getText());
+			throw new ParseCancellationException(msg, new UndefinedSymbolException(msg));
+		}
+		return quantity;
 	}
 
 	/** '-' expr */
@@ -59,13 +65,13 @@ public class QuantityEval extends LEMSExpressionBaseVisitor<Quantity<?>> {
 		Quantity<?> left = visit(ctx.arithmetic(0));
 		Quantity<?> right = visit(ctx.arithmetic(1));
 		if (!right.getUnit().isCompatible(ONE)) {
-			StringBuilder msgSb = new StringBuilder();
-			msgSb.append("Expected adimensional exponent in ");
-			msgSb.append("'" + ctx.arithmetic(0).getText() + ctx.op.getText()
-					+ ctx.arithmetic(1).getText() + "'");
-			msgSb.append(", but found ");
-			msgSb.append("'" + right.getUnit().getDimension() + "'");
-			throw new ParseCancellationException(msgSb.toString());
+			String msg = MessageFormat
+					.format("Expected adimensional exponent in '{0}{1}{2}', but found '{3}'",
+							ctx.arithmetic(0).getText(),
+							ctx.op.getText(),
+							ctx.arithmetic(1).getText(),
+							right.getUnit().getDimension());
+			throw new ParseCancellationException(msg);
 		}
 
 		Integer exponent = right.getValue().intValue();

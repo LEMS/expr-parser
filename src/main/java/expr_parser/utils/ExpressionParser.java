@@ -27,9 +27,13 @@ public class ExpressionParser {
 		return p.parseAndVisitWith(eval).asDouble();
 	}
 
-	public static Quantity<?> evaluateQuantitiesContext(String expression,
-			Map<String, Quantity<?>> context, Map<String, Unit<?>> unitContext)
+	public static Quantity<?> evaluateQuantitiesContext(String expression, Map<String, Quantity<?>> context, Map<String, Unit<?>> unitContext)
 			throws UndefinedSymbolException {
+		Set<String> depVars = listSymbolsInExpression(expression);
+		depVars.removeAll(context.keySet());
+		if(depVars.size() > 0){
+			throw new UndefinedSymbolException("Symbol(s) '" + depVars  + "' undefined in expression '" + expression + "'");
+		}
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
 		QuantityEval eval = new QuantityEval(context, unitContext);
 		return p.parseAndVisitWith(eval);
