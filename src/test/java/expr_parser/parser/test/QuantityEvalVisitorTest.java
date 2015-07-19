@@ -78,7 +78,7 @@ public class QuantityEvalVisitorTest {
 	public void verify(String expr, Quantity<?> expected)
 			throws UndefinedSymbolException {
 		System.out.println(MessageFormat.format("Verifying [{0} ?= {1}]", expr, expected));
-		Quantity<?> r = ExpressionParser.evaluateQuantitiesContext(expr, ctxt,
+		Quantity<?> r = ExpressionParser.evaluateQuantityInContext(expr, ctxt,
 				uctxt);
 		assertEquals(expected, r);
 	}

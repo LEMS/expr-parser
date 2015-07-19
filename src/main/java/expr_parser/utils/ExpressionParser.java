@@ -27,7 +27,7 @@ public class ExpressionParser {
 		return p.parseAndVisitWith(eval).asDouble();
 	}
 
-	public static Quantity<?> evaluateQuantitiesContext(String expression, Map<String, Quantity<?>> context, Map<String, Unit<?>> unitContext)
+	public static Quantity<?> evaluateQuantityInContext(String expression, Map<String, Quantity<?>> context, Map<String, Unit<?>> unitContext)
 			throws UndefinedSymbolException {
 		Set<String> depVars = listSymbolsInExpression(expression);
 		depVars.removeAll(context.keySet());
