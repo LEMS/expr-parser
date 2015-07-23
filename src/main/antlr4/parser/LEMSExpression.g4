@@ -1,5 +1,5 @@
 grammar LEMSExpression;
-import CommonLexerRules;
+import  CommonLexerRules;
 
 expression:
 	(logic | arithmetic)?
@@ -37,3 +37,23 @@ func = (
 ;
 
 
+// Path parsing
+path:
+	select?
+;
+
+select:
+	select '/' select       # Step
+	| '..'                  # Up
+	| predicate             # Pred
+	| ID                    # Node
+;
+
+predicate:
+	ID '[' filter ']'
+;
+
+filter:
+	'*'
+	| ID '=' '\'' ID '\''
+;

@@ -3,7 +3,7 @@ package expr_parser.visitors;
 import parser.LEMSExpressionBaseVisitor;
 import parser.LEMSExpressionParser;
 
-public class Eval extends LEMSExpressionBaseVisitor<Value> {
+public class EvalVisitor extends LEMSExpressionBaseVisitor<Value> {
 
 	/** expr */
 	@Override

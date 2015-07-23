@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import expr_parser.visitors.AntlrExpressionParser;
-import expr_parser.visitors.Eval;
+import expr_parser.visitors.EvalVisitor;
 
 public class EvalVisitorTest {
 	private static final double EPSILON = 1e-10d;
@@ -71,7 +71,7 @@ public class EvalVisitorTest {
 
 	private Double getResult(String expression) {
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
-		Eval eval = new Eval();
+		EvalVisitor eval = new EvalVisitor();
 		return p.parseAndVisitWith(eval).asDouble();
 	}
 }

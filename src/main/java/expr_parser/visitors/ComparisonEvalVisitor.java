@@ -4,7 +4,7 @@ import java.util.Map;
 
 import parser.LEMSExpressionParser;
 
-public class ComparisonEval extends ContextEval {
+public class ComparisonEvalVisitor extends ContextEvalVisitor {
 
 	private boolean isTrue;
 
@@ -12,7 +12,7 @@ public class ComparisonEval extends ContextEval {
 		return isTrue;
 	}
 
-	public ComparisonEval(Map<String, Double> context) {
+	public ComparisonEvalVisitor(Map<String, Double> context) {
 		super(context);
 	}
 

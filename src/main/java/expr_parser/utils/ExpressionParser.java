@@ -9,10 +9,10 @@ import javax.measure.Unit;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 
 import expr_parser.visitors.AntlrExpressionParser;
-import expr_parser.visitors.ContextEval;
-import expr_parser.visitors.DimensionalAnalysis;
-import expr_parser.visitors.ListVariablesInExpr;
-import expr_parser.visitors.QuantityEval;
+import expr_parser.visitors.ContextEvalVisitor;
+import expr_parser.visitors.DimensionalAnalysisVisitor;
+import expr_parser.visitors.ListVariablesInExprVisitor;
+import expr_parser.visitors.QuantityEvalVisitor;
 
 public class ExpressionParser {
 
@@ -23,7 +23,7 @@ public class ExpressionParser {
 			throw new UndefinedSymbolException("Symbol(s) '" + depVars  + "' undefined in expression '" + expression + "'");
 		}
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
-		ContextEval eval = new ContextEval(context);
+		ContextEvalVisitor eval = new ContextEvalVisitor(context);
 		return p.parseAndVisitWith(eval).asDouble();
 	}
 
@@ -35,13 +35,13 @@ public class ExpressionParser {
 			throw new UndefinedSymbolException("Symbol(s) '" + depVars  + "' undefined in expression '" + expression + "'");
 		}
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
-		QuantityEval eval = new QuantityEval(context, unitContext);
+		QuantityEvalVisitor eval = new QuantityEvalVisitor(context, unitContext);
 		return p.parseAndVisitWith(eval);
 	}
 
 	public static Set<String> listSymbolsInExpression(String expression) {
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
-		ListVariablesInExpr listVars = new ListVariablesInExpr();
+		ListVariablesInExprVisitor listVars = new ListVariablesInExprVisitor();
 		p.parseAndVisitWith(listVars);
 		return listVars.getVariablesInExpr();
 	}
@@ -49,7 +49,7 @@ public class ExpressionParser {
 	public static Unit<?> dimensionalAnalysis(String expression,
 			Map<String, Unit<?>> context) {
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
-		DimensionalAnalysis eval = new DimensionalAnalysis(context);
+		DimensionalAnalysisVisitor eval = new DimensionalAnalysisVisitor(context);
 		return p.parseAndVisitWith(eval);
 	}
 
@@ -67,5 +67,4 @@ public class ExpressionParser {
 			return false;
 		}
 	}
-
 }

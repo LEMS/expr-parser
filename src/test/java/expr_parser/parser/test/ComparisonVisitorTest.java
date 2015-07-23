@@ -9,7 +9,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import expr_parser.visitors.AntlrExpressionParser;
-import expr_parser.visitors.ComparisonEval;
+import expr_parser.visitors.ComparisonEvalVisitor;
 
 public class ComparisonVisitorTest {
 
@@ -49,7 +49,7 @@ public class ComparisonVisitorTest {
 	private Boolean evaluateInContext(String expression,
 			Map<String, Double> context) {
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
-		ComparisonEval eval = new ComparisonEval(context);
+		ComparisonEvalVisitor eval = new ComparisonEvalVisitor(context);
 		return p.parseAndVisitWith(eval).asBoolean();
 	}
 

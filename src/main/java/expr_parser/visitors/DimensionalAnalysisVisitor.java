@@ -12,10 +12,10 @@ import org.antlr.v4.runtime.misc.ParseCancellationException;
 import parser.LEMSExpressionBaseVisitor;
 import parser.LEMSExpressionParser;
 
-public class DimensionalAnalysis extends LEMSExpressionBaseVisitor<Unit<?>> {
+public class DimensionalAnalysisVisitor extends LEMSExpressionBaseVisitor<Unit<?>> {
 	Map<String, Unit<?>> context = new HashMap<String, Unit<?>>();
 
-	public DimensionalAnalysis(Map<String, Unit<?>> dimensions) {
+	public DimensionalAnalysisVisitor(Map<String, Unit<?>> dimensions) {
 		this.context = dimensions;
 	}
 

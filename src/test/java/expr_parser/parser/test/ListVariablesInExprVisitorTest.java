@@ -10,7 +10,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import expr_parser.visitors.AntlrExpressionParser;
-import expr_parser.visitors.ListVariablesInExpr;
+import expr_parser.visitors.ListVariablesInExprVisitor;
 
 public class ListVariablesInExprVisitorTest {
 
@@ -27,7 +27,7 @@ public class ListVariablesInExprVisitorTest {
 
 	private Set<String> getResult(String expression) {
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
-		ListVariablesInExpr listVars = new ListVariablesInExpr();
+		ListVariablesInExprVisitor listVars = new ListVariablesInExprVisitor();
 		p.parseAndVisitWith(listVars);
 		return listVars.getVariablesInExpr();
 	}

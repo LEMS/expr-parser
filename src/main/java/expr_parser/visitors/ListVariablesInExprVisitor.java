@@ -6,7 +6,7 @@ import java.util.Set;
 import parser.LEMSExpressionBaseVisitor;
 import parser.LEMSExpressionParser;
 
-public class ListVariablesInExpr extends LEMSExpressionBaseVisitor<String> {
+public class ListVariablesInExprVisitor extends LEMSExpressionBaseVisitor<String> {
 	Set<String> variablesInExpr = new HashSet<String>();
 
 	public Set<String> getVariablesInExpr() {

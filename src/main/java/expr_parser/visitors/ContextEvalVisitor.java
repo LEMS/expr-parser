@@ -5,10 +5,10 @@ import java.util.Map;
 
 import parser.LEMSExpressionParser;
 
-public class ContextEval extends Eval {
+public class ContextEvalVisitor extends EvalVisitor {
 	Map<String, Double> context = new HashMap<String, Double>();
 
-	public ContextEval(Map<String, Double> context) {
+	public ContextEvalVisitor(Map<String, Double> context) {
 		this.context = context;
 	}
 

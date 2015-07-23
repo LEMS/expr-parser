@@ -19,11 +19,11 @@ import parser.LEMSExpressionBaseVisitor;
 import parser.LEMSExpressionParser;
 import tec.units.ri.quantity.Quantities;
 
-public class QuantityEval extends LEMSExpressionBaseVisitor<Quantity<?>> {
+public class QuantityEvalVisitor extends LEMSExpressionBaseVisitor<Quantity<?>> {
 	Map<String, Quantity<?>> context = new HashMap<String, Quantity<?>>();
 	Map<String, Unit<?>> unitContext = new HashMap<String, Unit<?>>();
 
-	public QuantityEval(Map<String, Quantity<?>> quantities,
+	public QuantityEvalVisitor(Map<String, Quantity<?>> quantities,
 			Map<String, Unit<?>> units) {
 		this.context = quantities;
 		this.unitContext = units;
