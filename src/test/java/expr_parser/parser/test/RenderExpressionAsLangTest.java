@@ -17,14 +17,11 @@ public class RenderExpressionAsLangTest {
 
 	@Test
 	public void testJava() {
-		List<String> testStrings = new ArrayList<String>();
-		testStrings.add("1.5+0.5");
-		testStrings.add("1/3*(9*1e1/10.)/(300e-2)");
-		testStrings.add("1/(1+10^(0-0e0))");
-		testStrings.add("sin(0.1)^2+cos(0.1)^2");
-		for (String tst : testStrings) {
-			assertEquals(tst, adaptTo(tst, new RenderJava()));
-		}
+		RenderJava adaptor = new RenderJava();
+		assertEquals("1.5+0.5", adaptTo("1.5+0.5", adaptor));
+		assertEquals("1/3*(9*1e1/10.)/(300e-2)", adaptTo("1/3*(9*1e1/10.)/(300e-2)", adaptor));
+		assertEquals("1/3*(9*1e1/10.)/(300e-2)", adaptTo("1/3*(9*1e1/10.)/(300e-2)", adaptor));
+		assertEquals("Math.sin(0.1)^2+Math.cos(0.1)^2", adaptTo("sin(0.1)^2+cos(0.1)^2", adaptor));
 	}
 
 	@Test
