@@ -19,9 +19,13 @@ public class TextUtils {
 		return "{" + arg + "}";
 	}
 
+	static public String latexParenthesize(String arg) {
+		return "\\left (" + arg + "\\right )";
+	}
+
 	public static String latexFuncCall(String... args) {
 		String pars = StringUtils.join(
 				Arrays.copyOfRange(args, 1, args.length), ',');
-		return args[0] + bracketize(parenthesize(pars));
+		return args[0] + bracketize(latexParenthesize(pars));
 	}
 }

@@ -19,10 +19,10 @@ public abstract class ARenderAs extends LEMSExpressionBaseVisitor<String> {
 		String result;
 		if (ctx.arithmetic() != null) {
 			result = new String(visit(ctx.arithmetic()));
-			System.out.println(ctx.arithmetic().getText() + " = " + result);
+//			System.out.println(ctx.arithmetic().getText() + " = " + result);
 		} else {
 			result = new String(visit(ctx.logic()));
-			System.out.println(ctx.logic().getText() + " = " + result);
+//			System.out.println(ctx.logic().getText() + " = " + result);
 		}
 		return result;
 	}

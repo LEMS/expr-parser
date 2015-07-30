@@ -13,7 +13,8 @@ import expr_parser.utils.TextUtils;
 public class RenderLatex extends ARenderAs {
 	@Override
 	String adaptNegate(String val) {
-		return "-" + TextUtils.parenthesize(val);
+		// return "-" + TextUtils.parenthesize(val);
+		return "-" + val;
 	}
 
 	@Override
@@ -103,5 +104,20 @@ public class RenderLatex extends ARenderAs {
 			throw new ParseCancellationException("Unknow function "
 					+ LEMSExpressionLexer.tokenNames[funcToken]);
 		}
+	}
+
+	@Override
+	public String visitDimensionalLiteral(
+			LEMSExpressionParser.DimensionalLiteralContext ctx) {
+		String val = ctx.FLOAT().getText();
+		String unit = ctx.ID().getText();
+		return val + "\\ " + "[\\text{" + unit + "}]";
+
+	}
+
+	@Override
+	public String visitParenthesized(
+			LEMSExpressionParser.ParenthesizedContext ctx) {
+		return (TextUtils.latexParenthesize(visit(ctx.arithmetic())));
 	}
 }

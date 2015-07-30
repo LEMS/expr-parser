@@ -13,7 +13,7 @@ public class DirectedGraph<T> implements Iterable<T> {
 
 	// key is a Node, value is a set of Nodes connected by outgoing edges from
 	// the key
-	private final Map<T, Set<T>> graph = new HashMap<T, Set<T>>();
+	public final Map<T, Set<T>> graph = new HashMap<T, Set<T>>();
 
 	public boolean addNode(T node) {
 		if (graph.containsKey(node)) {

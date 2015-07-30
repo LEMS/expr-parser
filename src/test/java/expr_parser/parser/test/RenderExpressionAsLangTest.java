@@ -46,11 +46,11 @@ public class RenderExpressionAsLangTest {
 	public void testLatex() {
 		RenderLatex adaptor = new RenderLatex();
 		assertEquals("1.1\\times 10^{-1}", adaptTo("1.1e-1", adaptor));
-		assertEquals("\\frac{1}{(1+10^{(0-0\\times 10^{0})})}",
+		assertEquals("\\frac{1}{\\left (1+10^{\\left (0-0\\times 10^{0}\\right )}\\right )}",
 				adaptTo("1/(1+10^(0-0e0))", adaptor));
-		assertEquals("\\sin^{2}{(0.1)}+\\cos^{2}{(0.1)}",
+		assertEquals("\\sin^{2}{\\left (0.1\\right )}+\\cos^{2}{\\left (0.1\\right )}",
 				adaptTo("sin(0.1)^2+cos(0.1)^2", adaptor));
-		assertEquals("a\\ \\cosh^{(\\exp{(b)}\\cdot 2)}{(0.1)}",
+		assertEquals("a\\ \\cosh^{\\left (\\exp{\\left (b\\right )}\\cdot 2\\right )}{\\left (0.1\\right )}",
 				adaptTo("a*cosh(0.1)^(exp(b)*2)", adaptor));
 	}
 

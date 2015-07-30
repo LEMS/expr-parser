@@ -27,31 +27,31 @@ public class RenderJava extends ARenderAs {
 	String adaptFuncCall(Integer funcToken, String arg) {
 		switch (funcToken) {
 		case LEMSExpressionParser.SIN:
-			return TextUtils.funcCall("sin", arg);
+			return TextUtils.funcCall("Math.sin", arg);
 		case LEMSExpressionParser.COS:
-			return TextUtils.funcCall("cos", arg);
+			return TextUtils.funcCall("Math.cos", arg);
 		case LEMSExpressionParser.TAN:
-			return TextUtils.funcCall("tan", arg);
+			return TextUtils.funcCall("Math.tan", arg);
 		case LEMSExpressionParser.SINH:
-			return TextUtils.funcCall("sinh", arg);
+			return TextUtils.funcCall("Math.sinh", arg);
 		case LEMSExpressionParser.COSH:
-			return TextUtils.funcCall("cosh", arg);
+			return TextUtils.funcCall("Math.cosh", arg);
 		case LEMSExpressionParser.TANH:
-			return TextUtils.funcCall("tanh", arg);
+			return TextUtils.funcCall("Math.tanh", arg);
 		case LEMSExpressionParser.EXP:
-			return TextUtils.funcCall("exp", arg);
+			return TextUtils.funcCall("Math.exp", arg);
 		case LEMSExpressionParser.LOG:
-			return TextUtils.funcCall("log", arg);
+			return TextUtils.funcCall("Math.log", arg);
 		case LEMSExpressionParser.LN:
-			return TextUtils.funcCall("log", arg);
+			return TextUtils.funcCall("Math.log", arg);
 		case LEMSExpressionParser.FLOOR:
-			return TextUtils.funcCall("floor", arg);
+			return TextUtils.funcCall("Math.floor", arg);
 		case LEMSExpressionParser.CEIL:
-			return TextUtils.funcCall("ceil", arg);
+			return TextUtils.funcCall("Math.ceil", arg);
 		case LEMSExpressionParser.ABS:
-			return TextUtils.funcCall("abs", arg);
+			return TextUtils.funcCall("Math.abs", arg);
 		case LEMSExpressionParser.RAND:
-			return TextUtils.funcCall("rand", arg);
+			return TextUtils.funcCall("Math.random", arg);
 		default:
 			throw new ParseCancellationException("Unknow function "
 					+ LEMSExpressionLexer.tokenNames[funcToken]);
