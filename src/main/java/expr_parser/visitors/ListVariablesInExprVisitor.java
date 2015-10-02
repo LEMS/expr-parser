@@ -20,7 +20,7 @@ public class ListVariablesInExprVisitor extends LEMSExpressionBaseVisitor<String
 	/** expr */
 	@Override
 	public String visitExpression(LEMSExpressionParser.ExpressionContext ctx) {
-		if (ctx.arithmetic().isEmpty()) {
+		if (ctx.arithmetic() == null || ctx.arithmetic().isEmpty()) {
 			visit(ctx.logic());
 		} else {
 			visit(ctx.arithmetic());
