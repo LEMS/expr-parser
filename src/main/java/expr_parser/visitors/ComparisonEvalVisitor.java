@@ -16,6 +16,19 @@ public class ComparisonEvalVisitor extends ContextEvalVisitor {
 		super(context);
 	}
 
+	public Value visitAnd(LEMSExpressionParser.AndContext ctx) {
+		Value left = visit(ctx.logic(0));
+		Value right = visit(ctx.logic(1));
+		return new Value(left.asBoolean() && right.asBoolean());
+
+	}
+
+	public Value visitOr(LEMSExpressionParser.AndContext ctx) {
+		Value left = visit(ctx.logic(0));
+		Value right = visit(ctx.logic(1));
+		return new Value(left.asBoolean() || right.asBoolean());
+	}
+
 	@Override
 	public Value visitComparison(LEMSExpressionParser.ComparisonContext ctx) {
 		Value left = visit(ctx.arithmetic(0)); // get value of left

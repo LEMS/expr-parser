@@ -37,6 +37,8 @@ public class ComparisonVisitorTest {
 		Map<String, Double> context = new HashMap<String, Double>();
 		context.put("x", 0.5);
 		assertTrue(evaluateInContext("x .lt. 1 .and. x .geq. 0.5", context));
+		assertTrue(evaluateInContext("x .gt. 1 .or. x .lt. 1", context));
+		assertFalse(evaluateInContext("x .gt. 1 .and. x .lt. 1", context));
 		assertFalse(evaluateInContext("x .lt. 1 .and. x .gt. 0.05e1", context));
 
 		assertTrue(evaluateInContext("x .lt. 1 .or. x .geq. 0.05e1", context));
