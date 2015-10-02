@@ -31,10 +31,10 @@ public class ComparisonEvalVisitor extends ContextEvalVisitor {
 
 	@Override
 	public Value visitComparison(LEMSExpressionParser.ComparisonContext ctx) {
-		Value left = visit(ctx.arithmetic(0)); // get value of left
-												// subexpression
-		Value right = visit(ctx.arithmetic(1)); // get value of right
-												// subexpression
+		Value left = visit(ctx.arithmetic(0));
+
+		Value right = visit(ctx.arithmetic(1));
+
 		Double l = left.asDouble();
 		Double r = right.asDouble();
 		switch (ctx.op.getType()) {
