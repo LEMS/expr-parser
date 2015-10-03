@@ -4,15 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <repositories>
-        <repository>
-            <id>jcenter</id>
-            <name>JCenter</name>
-            <layout>default</layout>
-            <url>http://jcenter.bintray.com</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
+	<repository>
+	    <id>jitpack.io</id>
+	    <url>https://jitpack.io</url>
+	</repository>
     </repositories>
 
     <groupId>expr_parser</groupId>
@@ -42,9 +37,9 @@
 
 
 		<dependency>
-			<groupId>tec.units</groupId>
-			<artifactId>unit-ri</artifactId>
-			<version>0.8-RC2</version>
+		    <groupId>com.github.unitsofmeasurement</groupId>
+		    <artifactId>unit-ri</artifactId>
+		    <version>0.8-RC2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.antlr</groupId>
