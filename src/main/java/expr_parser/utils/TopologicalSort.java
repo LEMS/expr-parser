@@ -43,7 +43,7 @@ public class TopologicalSort {
 	 * @param expanded
 	 *            A set of nodes that have been fully expanded.
 	 */
-	private static <T> void explore(T node, DirectedGraph<T> graph,
+	public static <T> void explore(T node, DirectedGraph<T> graph,
 			List<T> result, Set<T> visited, Set<T> expanded) {
 		if (visited.contains(node)) {
 			// if this node has already been expanded, then it's already been
@@ -72,7 +72,7 @@ public class TopologicalSort {
 		expanded.add(node);
 	}
 
-	private static <T> DirectedGraph<T> reverseGraph(DirectedGraph<T> graph) {
+	public static <T> DirectedGraph<T> reverseGraph(DirectedGraph<T> graph) {
 		DirectedGraph<T> result = new DirectedGraph<T>();
 
 		// Add all the nodes from the original graph

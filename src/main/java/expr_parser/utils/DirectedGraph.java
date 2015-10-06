@@ -13,14 +13,14 @@ public class DirectedGraph<T> implements Iterable<T> {
 
 	// key is a Node, value is a set of Nodes connected by outgoing edges from
 	// the key
-	public final Map<T, Set<T>> graph = new HashMap<T, Set<T>>();
+	private final Map<T, Set<T>> graph = new HashMap<T, Set<T>>();
 
 	public boolean addNode(T node) {
-		if (graph.containsKey(node)) {
+		if (getGraph().containsKey(node)) {
 			return false;
 		}
 
-		graph.put(node, new HashSet<T>());
+		getGraph().put(node, new HashSet<T>());
 		return true;
 	}
 
@@ -34,24 +34,24 @@ public class DirectedGraph<T> implements Iterable<T> {
 		validateSourceAndDestinationNodes(src, dest);
 
 		// Add the edge by adding the dest node into the outgoing edges
-		graph.get(src).add(dest);
+		getGraph().get(src).add(dest);
 	}
 
 	public void removeEdge(T src, T dest) {
 		validateSourceAndDestinationNodes(src, dest);
 
-		graph.get(src).remove(dest);
+		getGraph().get(src).remove(dest);
 	}
 
 	public boolean edgeExists(T src, T dest) {
 		validateSourceAndDestinationNodes(src, dest);
 
-		return graph.get(src).contains(dest);
+		return getGraph().get(src).contains(dest);
 	}
 
 	public Set<T> edgesFrom(T node) {
 		// Check that the node exists.
-		Set<T> edges = graph.get(node);
+		Set<T> edges = getGraph().get(node);
 		if (edges == null)
 			throw new NoSuchElementException("Source node does not exist.");
 
@@ -59,21 +59,25 @@ public class DirectedGraph<T> implements Iterable<T> {
 	}
 
 	public Iterator<T> iterator() {
-		return graph.keySet().iterator();
+		return getGraph().keySet().iterator();
 	}
 
 	public int size() {
-		return graph.size();
+		return getGraph().size();
 	}
 
 	public boolean isEmpty() {
-		return graph.isEmpty();
+		return getGraph().isEmpty();
 	}
 
 	private void validateSourceAndDestinationNodes(T src, T dest) {
 		// Confirm both endpoints exist
-		if (!graph.containsKey(src) || !graph.containsKey(dest))
+		if (!getGraph().containsKey(src) || !getGraph().containsKey(dest))
 			throw new NoSuchElementException("Both nodes must be in the graph.");
+	}
+
+	public Map<T, Set<T>> getGraph() {
+		return graph;
 	}
 
 }
