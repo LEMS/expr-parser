@@ -5,7 +5,7 @@ import java.util.Map;
 
 import parser.LEMSExpressionParser;
 
-public class ContextEvalVisitor extends EvalVisitor {
+public class ContextEvalVisitor extends ComparisonEvalVisitor {
 	Map<String, Double> context = new HashMap<String, Double>();
 
 	public ContextEvalVisitor(Map<String, Double> context) {
