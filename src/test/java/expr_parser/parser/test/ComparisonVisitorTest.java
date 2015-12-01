@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import expr_parser.visitors.AntlrExpressionParser;
 import expr_parser.visitors.ComparisonEvalVisitor;
+import expr_parser.visitors.ContextEvalVisitor;
 
 public class ComparisonVisitorTest {
 
@@ -51,7 +52,7 @@ public class ComparisonVisitorTest {
 	private Boolean evaluateInContext(String expression,
 			Map<String, Double> context) {
 		AntlrExpressionParser p = new AntlrExpressionParser(expression);
-		ComparisonEvalVisitor eval = new ComparisonEvalVisitor(context);
+		ComparisonEvalVisitor eval = new ContextEvalVisitor(context);
 		return p.parseAndVisitWith(eval).asBoolean();
 	}
 
