@@ -2,8 +2,9 @@ grammar LEMSExpression;
 import  CommonLexerRules;
 
 expression:
-	(logic | arithmetic)?
+	(logic | arithmetic | ternary)?
 ;
+
 
 arithmetic:
 	'(' arithmetic ')' 				   			# Parenthesized
@@ -36,6 +37,7 @@ func = (
 )
 ;
 
+ternary: logic '?' expression ':' expression;
 
 // Path parsing
 path:
