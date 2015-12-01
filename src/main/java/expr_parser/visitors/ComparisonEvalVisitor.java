@@ -1,10 +1,8 @@
 package expr_parser.visitors;
 
-import java.util.Map;
-
 import parser.LEMSExpressionParser;
 
-public class ComparisonEvalVisitor extends ContextEvalVisitor {
+public class ComparisonEvalVisitor extends EvalVisitor {
 
 	private boolean isTrue;
 
@@ -12,10 +10,15 @@ public class ComparisonEvalVisitor extends ContextEvalVisitor {
 		return isTrue;
 	}
 
-	public ComparisonEvalVisitor(Map<String, Double> context) {
-		super(context);
+	@Override
+	public Value visitTernary(LEMSExpressionParser.TernaryContext ctx) {
+		 if(visit(ctx.logic()).asBoolean())
+			 return new Value(visit(ctx.expression(0)).asDouble());
+		 else
+			 return new Value(visit(ctx.expression(1)).asDouble());
 	}
 
+	@Override
 	public Value visitAnd(LEMSExpressionParser.AndContext ctx) {
 		Value left = visit(ctx.logic(0));
 		Value right = visit(ctx.logic(1));
@@ -23,7 +26,8 @@ public class ComparisonEvalVisitor extends ContextEvalVisitor {
 
 	}
 
-	public Value visitOr(LEMSExpressionParser.AndContext ctx) {
+	@Override
+	public Value visitOr(LEMSExpressionParser.OrContext ctx) {
 		Value left = visit(ctx.logic(0));
 		Value right = visit(ctx.logic(1));
 		return new Value(left.asBoolean() || right.asBoolean());
