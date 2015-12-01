@@ -9,13 +9,12 @@ public class EvalVisitor extends LEMSExpressionBaseVisitor<Value> {
 	@Override
 	public Value visitExpression(LEMSExpressionParser.ExpressionContext ctx) {
 		Value result;
-		if (ctx.arithmetic() != null) {
+		if (ctx.arithmetic() != null)
 			result = new Value(visit(ctx.arithmetic()).asDouble());
-			//System.out.println(ctx.arithmetic().getText() + " = " + result);
-		} else {
+		else if(ctx.logic() != null)
 			result = new Value(visit(ctx.logic()).asBoolean());
-			//System.out.println(ctx.logic().getText() + " = " + result);
-		}
+		else
+			result = new Value(visit(ctx.ternary()).asDouble());
 		return result;
 	}
 
@@ -25,6 +24,7 @@ public class EvalVisitor extends LEMSExpressionBaseVisitor<Value> {
 		Value val = visit(ctx.arithmetic());
 		return new Value(-val.asDouble());
 	}
+
 
 	/** expr op=POW expr */
 	@Override
