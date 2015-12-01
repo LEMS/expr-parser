@@ -7,14 +7,14 @@ ADD :   '+' ;
 SUB :   '-' ;
 POW :   '^' ;
 
-LEQ : '.leq.' ;
-GEQ	: '.geq.' ;
-LT	: '.lt.'  ;
-GT	: '.gt.'  ;
-EQ	: '.eq.'  ;
-NEQ	: '.neq.' ;
-AND: '.and.'  ;
-OR:	 '.or.'   ;
+LEQ : '.leq.' | '<=' 		 ;
+GEQ	: '.geq.' | '>=' 		 ;
+LT	: '.lt.'  | '<'  		 ;
+GT	: '.gt.'  | '>'  		 ;
+EQ	: '.eq.'  | '=='         ;
+NEQ	: '.neq.' | '!='		 ;
+AND: '.and.'  | 'and' | '&&' ;
+OR:	 '.or.'   | 'or'  | '||' ;
 
 ABS:   'abs'  ;
 SQRT:  'sqrt' ;
