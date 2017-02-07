@@ -18,7 +18,7 @@
 	</repositories>
 	<groupId>org.lemsml.expr-parser</groupId>
 	<artifactId>org.lemsml.expr-parser</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3</version>
 	<packaging>jar</packaging>
 	<dependencies>
 		<dependency>
