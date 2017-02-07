@@ -5,7 +5,7 @@ import parser.LEMSExpressionParser;
 public class ComparisonEvalVisitor extends EvalVisitor {
 
 	private boolean isTrue;
-
+    
 	public boolean isTrue() {
 		return isTrue;
 	}
@@ -51,10 +51,10 @@ public class ComparisonEvalVisitor extends EvalVisitor {
 		case LEMSExpressionParser.LT:
 			return new Value(l < r);
 		case LEMSExpressionParser.EQ:
-			System.out.println("WARNING: Float comparison is evil.");
+			//System.out.println("WARNING: Float comparison is evil.");
 			return new Value(compareWithinUlp(l, r, 4));
 		case LEMSExpressionParser.NEQ:
-			System.out.println("WARNING: Float comparison is evil.");
+			//System.out.println("WARNING: Float comparison is evil.");
 			return new Value(!compareWithinUlp(l, r, 4));
 		default:
 			throw new RuntimeException("Unknown operator: "

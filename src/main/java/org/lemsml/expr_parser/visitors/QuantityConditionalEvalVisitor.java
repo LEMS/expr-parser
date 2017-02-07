@@ -237,12 +237,12 @@ public class QuantityConditionalEvalVisitor extends LEMSExpressionBaseVisitor<Bo
 		case LEMSExpressionParser.LT:
 			return new BooleanOrQuantity(compareTo < 0);
 		case LEMSExpressionParser.EQ:
-			System.out.println("WARNING: Float comparison is evil.");
+			//System.out.println("WARNING: Float comparison is evil.");
 			//return new BooleanOrQuantity(compareWithinUlp(l, r, 4));
 			return new BooleanOrQuantity(compareTo == 0);
 
 		case LEMSExpressionParser.NEQ:
-			System.out.println("WARNING: Float comparison is evil.");
+			//System.out.println("WARNING: Float comparison is evil.");
 			return new BooleanOrQuantity(compareTo != 0);
 			//return new BooleanOrQuantity(!compareWithinUlp(left, r, 4));
 		default:
