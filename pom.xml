@@ -16,8 +16,8 @@
 			<url>http://dl.bintray.com/unitsofmeasurement/maven</url>
 		</repository>
 	</repositories>
-	<groupId>org.lemsml.expr_parser</groupId>
-	<artifactId>org.lemsml.expr_parser</artifactId>
+	<groupId>org.lemsml.expr-parser</groupId>
+	<artifactId>org.lemsml.expr-parser</artifactId>
 	<version>0.0.2</version>
 	<packaging>jar</packaging>
 	<dependencies>
