@@ -16,9 +16,9 @@
 			<url>http://dl.bintray.com/unitsofmeasurement/maven</url>
 		</repository>
 	</repositories>
-	<groupId>expr_parser</groupId>
-	<artifactId>expr_parser</artifactId>
-	<version>0.0.1</version>
+	<groupId>org.lemsml.expr-parser</groupId>
+	<artifactId>org.lemsml.expr-parser</artifactId>
+	<version>0.0.3</version>
 	<packaging>jar</packaging>
 	<dependencies>
 		<dependency>
@@ -98,7 +98,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.2.1</version>
+				<version>1.5.0</version>
 				<executions>
 					<execution>
 						<goals>
