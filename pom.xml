@@ -2,7 +2,36 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0     http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.lemsml.exprparser</groupId>
+	<artifactId>org.lemsml.exprparser</artifactId>
+	<version>0.0.4</version>
 	<packaging>bundle</packaging>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>antlr4-runtime</artifactId>
+			<version>4.7</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.unitsofmeasurement</groupId>
+			<artifactId>unit-ri</artifactId>
+			<version>0.8-RC2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.3.2</version>
+		</dependency>
+	</dependencies>
 	<repositories>
 		<repository>
 			<id>jitpack.io</id>
@@ -17,40 +46,6 @@
 			<url>http://dl.bintray.com/unitsofmeasurement/maven</url>
 		</repository>
 	</repositories>
-	<groupId>org.lemsml.exprparser</groupId>
-	<artifactId>org.lemsml.exprparser</artifactId>
-	<version>0.0.4</version>
-	<dependencies>
-		<dependency>
-			<groupId>org.antlr</groupId>
-			<artifactId>antlr4-maven-plugin</artifactId>
-			<version>4.5.3</version>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.measure</groupId>
-			<artifactId>unit-api</artifactId>
-			<version>0.7</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>com.github.unitsofmeasurement</groupId>
-			<artifactId>unit-ri</artifactId>
-			<version>0.8-RC2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.3.2</version>
-		</dependency>
-	</dependencies>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
 	<build>
 		<plugins>
 			<plugin>
@@ -93,8 +88,7 @@
 					<instructions>
 						<Bundle-Name>${project.artifactId}-${project.version}</Bundle-Name>
 						<Bundle-SymbolicName>${project.artifactId}-${project.version}</Bundle-SymbolicName>
-						<Bundle-Version>0</Bundle-Version>
-
+						<Provide-Capability>osgi.ee;osgi.ee=JavaSE;version=1.7</Provide-Capability>
 					</instructions>
 				</configuration>
 			</plugin>
@@ -123,9 +117,16 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<dependencies>
+					<dependency>
+						<groupId>org.antlr</groupId>
+						<artifactId>antlr4-maven-plugin</artifactId>
+						<version>4.7</version>
+					</dependency>
+				</dependencies>
 				<groupId>org.antlr</groupId>
 				<artifactId>antlr4-maven-plugin</artifactId>
-				<version>4.5.3</version>
+				<version>4.7</version>
 				<configuration>
 					<listener>false</listener>
 					<visitor>true</visitor>
@@ -138,6 +139,52 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<configuration>
+					<outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
+					<includeScope>runtime</includeScope>
+					<excludeScope>provided</excludeScope>
+				</configuration>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-dependency-plugin</artifactId>
+										<versionRange>[2.0,)</versionRange>
+										<goals>
+											<goal>copy-dependencies</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 </project>
