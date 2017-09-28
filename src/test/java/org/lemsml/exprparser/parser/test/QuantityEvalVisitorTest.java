@@ -3,8 +3,8 @@ package org.lemsml.exprparser.parser.test;
 import static org.junit.Assert.assertEquals;
 import static tec.units.ri.AbstractUnit.ONE;
 import static tec.units.ri.unit.MetricPrefix.CENTI;
-import static tec.units.ri.unit.SI.METRE;
-import static tec.units.ri.unit.SI.SECOND;
+import static tec.units.ri.unit.Units.METRE;
+import static tec.units.ri.unit.Units.SECOND;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
